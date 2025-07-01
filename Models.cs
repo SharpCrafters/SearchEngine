@@ -43,4 +43,25 @@ namespace SearchEngine
 
         ~Scanner() { }
     }
+
+    public class User
+    {
+        [Key]
+        public int id { get; set; }
+
+        public string? Name { get; set; }
+
+        public string? Password { get; set; }
+
+        public User() { }
+
+        public User(int id, string? Name, string? Password)
+        {
+            this.id = id;
+            this.Name = Name;
+            this.Password = Password;
+        }
+
+        ~User() { }
+    }
 }

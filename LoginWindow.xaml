@@ -3,37 +3,71 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:local="clr-namespace:SearchEngine"
         mc:Ignorable="d"
-        Title="Вход в систему" Height="250" ResizeMode="NoResize" Width="400" Icon="/Resources/Logo.ico">
+        Title="Вход в систему" 
+        Height="250" 
+        Width="400"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Icon="/Resources/Logo.ico"
+        Background="#FF1E1E1E">
+
     <Grid>
-        <StackPanel>
-            <TextBlock Text="Вход в поисковую систему 3D-сканнеров"
-                       Margin="10,10,10,10"
-                       FontSize="18"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="77*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel VerticalAlignment="Center" Grid.ColumnSpan="2">
+            <TextBlock Text="Вход в поисковую систему 3D-сканеров"
+                       Margin="10,10,10,20"
+                       FontSize="18"
+                       Foreground="White"
+                       TextAlignment="Center"/>
+
             <TextBox x:Name="UserNameTextBox"
-                     Margin="10,10,10,10"
-                     FontSize="18"
+                     Margin="20,0,20,10"
+                     FontSize="14"
                      Text="Имя пользователя" 
                      GotFocus="UserNameTextBoxGotFocus" 
                      LostFocus="UserNameTextBoxLostFocus"
-                     HorizontalAlignment="Left"
-                     Width="200"/>
+                     HorizontalAlignment="Stretch"
+                     Foreground="White"
+                     BorderBrush="#FF555555"
+                     Padding="5">
+                <TextBox.Background>
+                    <SolidColorBrush Color="#FF333333"/>
+                </TextBox.Background>
+            </TextBox>
+
             <TextBox x:Name="PasswordTextBox"
-                     Margin="10,10,10,10"
-                     FontSize="18"
+                     Margin="20,0,20,20"
+                     FontSize="14"
                      Text="Пароль" 
                      GotFocus="PasswordTextBoxGotFocus" 
                      LostFocus="PasswordTextBoxLostFocus"
-                     HorizontalAlignment="Left"
-                     Width="200"/>
+                     HorizontalAlignment="Stretch"
+                     Background="#FF333333"
+                     Foreground="White"
+                     BorderBrush="#FF555555"
+                     Padding="5" Cursor=""/>
+
             <Button Name="LoginButton"
-                    Margin="10,10,10,10"
+                    Margin="20,0,20,10"
                     Content="Войти"
-                    HorizontalAlignment="Center"
-                    Width="150"
-                    Click="LoginButtonClick"/>
+                    HorizontalAlignment="Stretch"
+                    Height="30"
+                    Click="LoginButtonClick"
+                    Background="DimGray"
+                    Foreground="White"
+                    BorderThickness="0"/>
+
+            <TextBlock x:Name="ErrorTextBlock" 
+Text="Неверное имя пользователя или пароль"
+Foreground="#D32F2F"
+TextWrapping="Wrap"
+Margin="10,5"
+Opacity="0"/>
+            
         </StackPanel>
     </Grid>
 </Window>

@@ -1,31 +1,53 @@
-﻿using System.Windows;
-using System.Windows.Controls;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Windows;
 
 namespace SearchEngine
 {
     internal class DataBaseService
     {
-        private static readonly ApplicationContext _dataBase = new ApplicationContext();
+        private readonly ApplicationContext _dataBase;
 
-        public void GetData(DataGrid DataGrid)
+        public DataBaseService()
         {
-            DataGrid.ItemsSource = _dataBase.Scanners;
+            _dataBase = new ApplicationContext();
+            _dataBase.Database.EnsureCreated(); // Создаем таблицу, если ее нет
         }
 
         public bool IsUserExist(string UserName, string UserPassword)
         {
-            string Password = "";
-
-            foreach (var User in _dataBase.Users) if (User.Name == UserName) Password = User.Password;
-
-            if (Password == UserPassword)
+            try
             {
-                MessageBox.Show($"Вход выполнен в качестве пользователя \"{UserName}\".", "Успешный вход", MessageBoxButton.OK, MessageBoxImage.Information);
-                return true;
-            }
+                // Проверяем, что таблица существует
+                if (!_dataBase.Database.CanConnect())
+                {
+                    MessageBox.Show("Ошибка доступа к базе данных", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
 
-            MessageBox.Show($"Пользователь с именем \"{UserName}\" и паролем \"{UserPassword}\" не найден.", "Ошибка входа", MessageBoxButton.OK, MessageBoxImage.Error);
-            return false;
+                string Password = "";
+                foreach (var User in _dataBase.Users)
+                {
+                    if (User.Name == UserName)
+                    {
+                        Password = User.Password;
+                        break;
+                    }
+                }
+
+                if (Password == UserPassword)
+                {
+                    MessageBox.Show($"Вход выполнен: {UserName}", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return true;
+                }
+
+                MessageBox.Show("Неверный логин или пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка базы данных: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
         }
     }
 }

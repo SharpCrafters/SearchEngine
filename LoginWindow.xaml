@@ -5,69 +5,48 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="Вход в систему" 
-        Height="250" 
-        Width="400"
+        Height="300" 
+        Width="425"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         Icon="/Resources/Logo.ico"
-        Background="#FF1E1E1E">
+        Background="#D9D9D9">
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="77*"/>
-            <ColumnDefinition Width="3*"/>
-        </Grid.ColumnDefinitions>
-        <StackPanel VerticalAlignment="Center" Grid.ColumnSpan="2">
+        <StackPanel>
+            <Border BorderBrush="#373737"
+                    BorderThickness="0,0,0,1">
             <TextBlock Text="Вход в поисковую систему 3D-сканеров"
-                       Margin="10,10,10,20"
-                       FontSize="18"
-                       Foreground="White"
+                       Margin="15,5,15,5"
+                       FontSize="20"
+                       Foreground="#373737"
                        TextAlignment="Center"/>
-
-            <TextBox x:Name="UserNameTextBox"
-                     Margin="20,0,20,10"
-                     FontSize="14"
-                     Text="Имя пользователя" 
-                     GotFocus="UserNameTextBoxGotFocus" 
-                     LostFocus="UserNameTextBoxLostFocus"
-                     HorizontalAlignment="Stretch"
-                     Foreground="White"
-                     BorderBrush="#FF555555"
-                     Padding="5">
-                <TextBox.Background>
-                    <SolidColorBrush Color="#FF333333"/>
-                </TextBox.Background>
-            </TextBox>
-
-            <TextBox x:Name="PasswordTextBox"
-                     Margin="20,0,20,20"
-                     FontSize="14"
-                     Text="Пароль" 
-                     GotFocus="PasswordTextBoxGotFocus" 
-                     LostFocus="PasswordTextBoxLostFocus"
-                     HorizontalAlignment="Stretch"
-                     Background="#FF333333"
-                     Foreground="White"
-                     BorderBrush="#FF555555"
-                     Padding="5" Cursor=""/>
-
+            </Border>
+            <TextBlock Text="Имя пользователя:"
+                       Margin="15,5,15,5"
+                       FontSize="18"
+                       Foreground="#373737"
+                       TextAlignment="Left"/>
+            <TextBox Name="UserNameTextBox"
+                     Margin="15,0,15,0"
+                     Foreground="#373737"
+                     FontSize="18"/>
+            <TextBlock Text="Пароль:"
+                       Margin="15,20,15,5"
+                       FontSize="18"
+                       Foreground="#373737"
+                       TextAlignment="Left"/>
+            <PasswordBox Name="UserPasswordBox"
+                         Foreground="#373737"
+                         Margin="15,0,15,0"
+                         FontSize="18"/>
             <Button Name="LoginButton"
-                    Margin="20,0,20,10"
+                    Margin="40,15,40,15"
+                    Background="#373737"
+                    BorderBrush="#373737"
                     Content="Войти"
-                    HorizontalAlignment="Stretch"
-                    Height="30"
-                    Click="LoginButtonClick"
-                    Background="DimGray"
-                    Foreground="White"
-                    BorderThickness="0"/>
-
-            <TextBlock x:Name="ErrorTextBlock" 
-Text="Неверное имя пользователя или пароль"
-Foreground="#D32F2F"
-TextWrapping="Wrap"
-Margin="10,5"
-Opacity="0"/>
-            
+                    Foreground="#D9D9D9"
+                    Click="LoginButtonClick"/>
         </StackPanel>
     </Grid>
 </Window>

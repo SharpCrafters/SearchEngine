@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Вход в систему" 
         Height="300" 
         Width="425"
         ResizeMode="NoResize"
@@ -14,13 +13,14 @@
 
     <Grid>
         <StackPanel>
-            <Border BorderBrush="#373737"
-                    BorderThickness="0,0,0,1">
+            <Border Background="#373737"
+                    Padding="10" 
+                    Height="48">
             <TextBlock Text="Вход в поисковую систему 3D-сканеров"
-                       Margin="15,5,15,5"
-                       FontSize="20"
-                       Foreground="#373737"
-                       TextAlignment="Center"/>
+                           FontSize="20"
+                           Foreground="White"
+                           FontWeight="SemiBold"
+                           TextAlignment="Center"/>
             </Border>
             <TextBlock Text="Имя пользователя:"
                        Margin="15,5,15,5"

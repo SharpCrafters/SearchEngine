@@ -11,7 +11,6 @@ namespace SearchEngine
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Data Source=Scanners.db");
-            optionsBuilder.EnableSensitiveDataLogging(); // Для отладки
         }
     }
 }

@@ -27,6 +27,8 @@ namespace SearchEngine
                 {
                     Window SuccessfulMessage = null;
 
+                    MainWindow MainWindow = new MainWindow();
+
                     SuccessfulMessage = new Window
                     {
                         Title = "Успешный вход",
@@ -62,7 +64,12 @@ namespace SearchEngine
                     };
                     SuccessfulMessage.Closed += (s, e) => this.Close();
 
-                    SuccessfulMessage.ShowDialog();                    
+                    SuccessfulMessage.Closed += (s, e) => 
+                    {
+                        MainWindow.Show();
+                    };
+
+                    SuccessfulMessage.ShowDialog();     
                 }
 
                 else

@@ -7,6 +7,7 @@
         Height="300" 
         Width="425"
         ResizeMode="NoResize"
+        Title="Поисковая система"
         WindowStartupLocation="CenterScreen"
         Icon="/Resources/Logo.ico"
         Background="#D9D9D9">
@@ -15,10 +16,11 @@
         <StackPanel>
             <Border Background="#373737"
                     Padding="10" 
-                    Height="48">
+                    Height="48"
+                    BorderThickness="0">
             <TextBlock Text="Вход в поисковую систему 3D-сканеров"
                            FontSize="20"
-                           Foreground="White"
+                           Foreground="#D9D9D9"
                            FontWeight="SemiBold"
                            TextAlignment="Center"/>
             </Border>

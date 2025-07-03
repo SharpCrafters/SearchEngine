@@ -14,6 +14,8 @@ using System.Windows.Shapes;
 
 namespace SearchEngine
 {
+    
+
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
@@ -26,6 +28,13 @@ namespace SearchEngine
             InitializeComponent();
 
             _DataBaseService.GetScannersTableData(ScannersTable);
+        }
+
+        private void SearchClickClick(object sender, RoutedEventArgs e)
+        {
+            SearchWindow SearchWindow = new SearchWindow();
+
+            SearchWindow.Show();
         }
     }
 }

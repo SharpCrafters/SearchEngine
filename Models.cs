@@ -23,11 +23,11 @@ namespace SearchEngine
 
         public int ReleaseYear { get; set; }
 
-        public string? Descriprion { get; set; }
+        public string? Description { get; set; }
 
         public Scanner() { }
 
-        public Scanner(int id, string? name, string? creator, string? technology, int accuracy, int speed, string? formats, int price, int releaseYear, string? descriprion)
+        public Scanner(int id, string? name, string? creator, string? technology, int accuracy, int speed, string? formats, int price, int releaseYear, string? description)
         {
             this.id = id;
             Name = name;
@@ -38,7 +38,7 @@ namespace SearchEngine
             Formats = formats;
             Price = price;
             ReleaseYear = releaseYear;
-            Descriprion = descriprion;
+            Description = description;
         }
 
         ~Scanner() { }

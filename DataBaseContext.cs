@@ -2,15 +2,19 @@
 
 namespace SearchEngine
 {
-    public class ApplicationContext : DbContext
+    public class AccessDbContext : DbContext
     {
-        public DbSet<Scanner> Scanners { get; set; } = null!;
+        public DbSet<Scanner> Scanner { get; set; } = null!;
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<Creator> Creator { get; set; } = null!;
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public DbSet<Technology> Technology { get; set; } = null!;
+
+        public DbSet<User> User { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder OptionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=Scanners.db");
+            OptionsBuilder.UseJet(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=SearchEngine.accdb;");
         }
     }
 }

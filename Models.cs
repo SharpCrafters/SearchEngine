@@ -2,46 +2,126 @@
 
 namespace SearchEngine
 {
+    public static class PreparedList 
+    {
+       public static List<ScannerDataGrid> List { get; set; }
+
+    }
+
+    public class Creator
+    {
+        [Key]
+        public int id { get; set; }
+
+        public string? name { get; set; }
+
+        public Creator() { }
+
+        public Creator(int id, string? name)
+        {
+            this.id = id;
+            this.name = name;
+        }
+    }
+
+    public class Technology
+    {
+        [Key]
+        public int id { get; set; }
+
+        public string? name { get; set; }
+
+        public Technology() { }
+
+        public Technology(int id, string? name)
+        {
+            this.id = id;
+            this.name = name;
+        }
+    }
+
     public class Scanner
     {
         [Key]
         public int id {  get; set; }
 
-        public string? Name { get; set; }
+        public string? name { get; set; }
 
-        public string? Creator { get; set; }
+        public int creator { get; set; }
 
-        public string? Technology { get; set; }
+        public int technology { get; set; }
 
-        public int Accuracy { get; set; }
+        public int accuracy { get; set; }
 
-        public int Speed { get; set; }
+        public int speed { get; set; }
 
-        public string? Formats { get; set; }
+        public string? colorcapture { get; set; }
 
-        public int Price { get; set; }
+        public int price { get; set; }
 
-        public int ReleaseYear { get; set; }
+        public int release { get; set; }
 
-        public string? Description { get; set; }
+        public string? description { get; set; }
 
         public Scanner() { }
 
-        public Scanner(int id, string? name, string? creator, string? technology, int accuracy, int speed, string? formats, int price, int releaseYear, string? description)
+        public Scanner(int id, string? name, int creator, int technology, int accuracy, int speed, string? colorcapture, int price, int release, string? description)
         {
             this.id = id;
-            Name = name;
-            Creator = creator;
-            Technology = technology;
-            Accuracy = accuracy;
-            Speed = speed;
-            Formats = formats;
-            Price = price;
-            ReleaseYear = releaseYear;
-            Description = description;
+            this.name = name;
+            this.creator = creator;
+            this.technology = technology;
+            this.accuracy = accuracy;
+            this.speed = speed;
+            this.colorcapture = colorcapture;
+            this.price = price;
+            this.release = release;
+            this.description = description;
         }
 
         ~Scanner() { }
+    }
+
+    public class ScannerDataGrid
+    {
+        [Key]
+        public int id { get; set; }
+
+        public string? name { get; set; }
+
+        public string? creator { get; set; }
+
+        public string? technology { get; set; }
+
+        public int accuracy { get; set; }
+
+        public int speed { get; set; }
+
+        public string? colorcapture { get; set; }
+
+        public int price { get; set; }
+
+        public int release { get; set; }
+
+        public string? description { get; set; }
+
+        public ScannerDataGrid() { }
+
+        public ScannerDataGrid(int id, string? name, string? creator, string? technology, int accuracy, int speed, string? colorcapture, int price, int release, string? description)
+        {
+            this.id = id;
+            this.name = name;
+            this.creator = creator;
+            this.technology = technology;
+            this.accuracy = accuracy;
+            this.speed = speed;
+            this.colorcapture = colorcapture;
+            this.price = price;
+            this.release = release;
+            this.description = description;
+        }
+
+        ~ScannerDataGrid() { }
     }
 
     public class User
@@ -49,17 +129,17 @@ namespace SearchEngine
         [Key]
         public int id { get; set; }
 
-        public string? Name { get; set; }
+        public string? name { get; set; }
 
-        public string? Password { get; set; }
+        public string? password { get; set; }
 
         public User() { }
 
-        public User(int id, string? Name, string? Password)
+        public User(int id, string? name, string? password)
         {
             this.id = id;
-            this.Name = Name;
-            this.Password = Password;
+            this.name = name;
+            this.password = password;
         }
 
         ~User() { }

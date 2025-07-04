@@ -6,7 +6,7 @@
         mc:Ignorable="d"
         Height="300" 
         Width="425"
-        ResizeMode="NoResize"
+        ResizeMode="CanMinimize"
         Title="Поисковая система"
         WindowStartupLocation="CenterScreen"
         Icon="/Resources/Logo.ico"

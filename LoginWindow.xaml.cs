@@ -2,7 +2,6 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 using GalaSoft.MvvmLight.Command;
-using static MaterialDesignThemes.Wpf.Theme;
 
 namespace SearchEngine
 {
@@ -25,22 +24,25 @@ namespace SearchEngine
 
                 if (_DataBaseService.IsUserExist(UserNameTextBox.Text, UserPasswordBox.Password))
                 {
-                    Window SuccessfulMessage = null;
-
-                    MainWindow MainWindow = new MainWindow();
-
-                    SuccessfulMessage = new Window
+                    if (UserNameTextBox.Text == "user")
                     {
-                        Title = "Успешный вход",
-                        SizeToContent = SizeToContent.WidthAndHeight,
-                        ResizeMode = ResizeMode.NoResize,
-                        WindowStartupLocation = WindowStartupLocation.CenterScreen,
-                        Icon = Application.Current.MainWindow.Icon,
-                        Background = (Brush)new BrushConverter().ConvertFrom("#D9D9D9"),
-                        Content = new StackPanel
+
+                        Window SuccessfulMessage = null;
+
+                        UserMainWindow MainWindow = new UserMainWindow();
+
+                        SuccessfulMessage = new Window
                         {
-                            Margin = new Thickness(20),
-                            Children =
+                            Title = "Успешный вход",
+                            SizeToContent = SizeToContent.WidthAndHeight,
+                            ResizeMode = ResizeMode.NoResize,
+                            WindowStartupLocation = WindowStartupLocation.CenterScreen,
+                            Icon = Application.Current.MainWindow.Icon,
+                            Background = (Brush)new BrushConverter().ConvertFrom("#D9D9D9"),
+                            Content = new StackPanel
+                            {
+                                Margin = new Thickness(20),
+                                Children =
                             {
                                 new TextBlock
                                 {
@@ -57,19 +59,70 @@ namespace SearchEngine
                                     HorizontalAlignment = HorizontalAlignment.Center,
                                     BorderBrush = new SolidColorBrush(Color.FromRgb(55,55,55)),
                                     Foreground = (Brush)new BrushConverter().ConvertFrom("#D9D9D9"),
-                                    Command = new RelayCommand(() => SuccessfulMessage.Close()),                            
+                                    Command = new RelayCommand(() => SuccessfulMessage.Close()),
                                 }
                             }
-                        }
-                    };
-                    SuccessfulMessage.Closed += (s, e) => this.Close();
+                            }
+                        };
+                        SuccessfulMessage.Closed += (s, e) => this.Close();
 
-                    SuccessfulMessage.Closed += (s, e) => 
+                        SuccessfulMessage.Closed += (s, e) =>
+                        {
+                            MainWindow.Show();
+                        };
+
+                        SuccessfulMessage.ShowDialog();
+                    }
+
+                    if (UserNameTextBox.Text == "admin")
                     {
-                        MainWindow.Show();
-                    };
+                        Window SuccessfulMessage = null;
 
-                    SuccessfulMessage.ShowDialog();     
+                        UserMainWindow MainWindow = new UserMainWindow();
+
+                        SuccessfulMessage = new Window
+                        {
+                            Title = "Успешный вход",
+                            SizeToContent = SizeToContent.WidthAndHeight,
+                            ResizeMode = ResizeMode.NoResize,
+                            WindowStartupLocation = WindowStartupLocation.CenterScreen,
+                            Icon = Application.Current.MainWindow.Icon,
+                            Background = (Brush)new BrushConverter().ConvertFrom("#D9D9D9"),
+                            Content = new StackPanel
+                            {
+                                Margin = new Thickness(20),
+                                Children =
+                            {
+                                new TextBlock
+                                {
+                                    Text = $"Вы успешно вошли в систему в качестве пользователя \"{UserNameTextBox.Text}\"!",
+                                    HorizontalAlignment = HorizontalAlignment.Center,
+                                    FontSize = 16,
+                                    Margin = new Thickness(0, 0, 0, 20),
+                                    Foreground = (Brush)new BrushConverter().ConvertFrom("#373737")
+                                },
+                                new System.Windows.Controls.Button
+                                {
+                                    Background = (Brush)new BrushConverter().ConvertFrom("#373737"),
+                                    Content = "Отлично!",
+                                    HorizontalAlignment = HorizontalAlignment.Center,
+                                    BorderBrush = new SolidColorBrush(Color.FromRgb(55,55,55)),
+                                    Foreground = (Brush)new BrushConverter().ConvertFrom("#D9D9D9"),
+                                    Command = new RelayCommand(() => SuccessfulMessage.Close()),
+                                }
+                            }
+                            }
+                        };
+
+                        SuccessfulMessage.Closed += (s, e) => this.Close();
+
+                        SuccessfulMessage.Closed += (s, e) =>
+                        {
+                            MainWindow.Show();
+                        };
+
+                        SuccessfulMessage.ShowDialog();
+                    }
                 }
 
                 else

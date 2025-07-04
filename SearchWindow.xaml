@@ -7,70 +7,140 @@
         mc:Ignorable="d"
         Background="#D9D9D9"
         Title="Поиск сканера" 
-        Height="305" 
+        Height="350" 
         Width="500"
         Icon="/Resources/Logo.ico">
 
-    <Window.Resources>
-        <local:NullToBooleanConverter x:Key="NullToBooleanConverter"/>
-    </Window.Resources>
-
     <Grid>
-        <StackPanel>
+        <StackPanel Cursor="">
             <TextBlock Text="Поиск сканера по фильтрам"
                        Margin="10,10,10,10"
                        Foreground="#373737"
-                       FontSize="18"/>
-            <StackPanel Orientation="Horizontal">
+                       FontSize="20"/>
+            <Border Background="#D5D5D5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
                 <TextBlock Text="Производитель"
-                           Margin="10,10,10,10"
+                           Margin="10"
                            Foreground="#373737"
                            FontSize="16"/>
-                <ComboBox Margin="183,0,0,0" 
-                          Width="150"
+
+                <ComboBox SelectionChanged="ComboBoxSelected"
+                          Name="CreatorComboBox"
+                          Grid.Column="1"
+                          Margin="0,0,10,0"
+                          Width="Auto"
+                          HorizontalAlignment="Right"
                           FontSize="16"
                           Foreground="#373737"
                           ItemsSource="{Binding Creators}"
-                          SelectedItem="{Binding SelectedCreator, UpdateSourceTrigger=PropertyChanged}"
                           DisplayMemberPath="."/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
+            </Grid>
+            </Border>
+            
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
                 <TextBlock Text="Технология"
-                           Margin="10,10,10,10"
+                           Margin="10"
                            Foreground="#373737"
                            FontSize="16"/>
-                <ComboBox Margin="213,0,0,0" 
-                          Width="150"
+
+                <ComboBox SelectionChanged="ComboBoxSelected"
+                          Name="TechnologyComboBox"
+                          Grid.Column="1"
+                          Margin="0,0,10,0"
+                          Width="Auto"
+                          HorizontalAlignment="Right"
                           FontSize="16"
                           Foreground="#373737"
                           ItemsSource="{Binding Technologies}"
                           DisplayMemberPath="."/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Год выпуска"
-                           Margin="10,10,10,10"
+            </Grid>
+
+            <Border Background="#D5D5D5">
+                <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Захват цвета"
+                           Margin="10"
                            Foreground="#373737"
                            FontSize="16"/>
-                <ComboBox Margin="207,0,0,0" 
-                          Width="150"
+
+                <ComboBox SelectionChanged="ComboBoxSelected"
+                          Name="ColorCaptureComboBox"
+                          Grid.Column="1"
+                          Margin="0,0,10,0"
+                          Width="Auto"
+                          HorizontalAlignment="Right"
+                          FontSize="16"
+                          Foreground="#373737"
+                          ItemsSource="{Binding ColorCaptureList}"
+                          DisplayMemberPath="."/>
+            </Grid>
+            </Border>
+            
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Год выпуска"
+                           Margin="10"
+                           Foreground="#373737"
+                           FontSize="16"/>
+
+                <ComboBox SelectionChanged="ComboBoxSelected"
+                          Name="ReleaseYearComboBox"
+                          Grid.Column="1"
+                          Margin="0,0,10,0"
+                          Width="Auto"
+                          HorizontalAlignment="Right"
                           FontSize="16"
                           Foreground="#373737"
                           ItemsSource="{Binding ReleaseYears}"
                           DisplayMemberPath="."/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
+            </Grid>
+
+            <Border Background="#D5D5D5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
                 <TextBlock Text="Стоимость"
-                           Margin="10,10,10,10"
+                           Margin="10"
                            Foreground="#373737"
                            FontSize="16"/>
-                <ComboBox Margin="220,0,0,0" 
-                          Width="150"
+
+                <ComboBox SelectionChanged="ComboBoxSelected"
+                          Name="PriceComboBox"
+                          Grid.Column="1"
+                          Margin="0,0,10,0"
+                          Width="Auto"
+                          HorizontalAlignment="Right"
                           FontSize="16"
                           Foreground="#373737"
                           ItemsSource="{Binding Prices}"
                           DisplayMemberPath="."/>
-            </StackPanel>
+            </Grid>
+            </Border>
+
+
             <Button x:Name="SearchScannerButton"
+                      IsEnabled="False"
                       Content="Применить фильтр"
                       HorizontalAlignment="Center"
                       Margin="10,20,10,10"

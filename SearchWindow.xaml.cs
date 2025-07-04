@@ -81,7 +81,7 @@ namespace SearchEngine
 
                 if (PriceComboBox.SelectedItem == "Менее 100 000₽")
                 {
-                    foreach (var ScannerForFirstChecking in FilterList) if (ScannerForFirstChecking.price >= 100000) FilterList.Add(ScannerForFirstChecking);
+                    foreach (var ScannerForFirstChecking in FilterList) if (ScannerForFirstChecking.price < 100000) TempList.Add(ScannerForFirstChecking);
 
                     FilterList = TempList;
 
@@ -90,7 +90,7 @@ namespace SearchEngine
 
                 else if (PriceComboBox.SelectedItem == "100 000 – 500 000₽")
                 {
-                    foreach (var ScannerForSecondChecking in FilterList) if ((ScannerForSecondChecking.price < 100000) && (ScannerForSecondChecking.price > 500000)) TempList.Add(ScannerForSecondChecking);
+                    foreach (var ScannerForSecondChecking in FilterList) if ((ScannerForSecondChecking.price >= 100000) && (ScannerForSecondChecking.price < 500000)) TempList.Add(ScannerForSecondChecking);
 
                     FilterList = TempList;
 
@@ -99,7 +99,7 @@ namespace SearchEngine
 
                 else if (PriceComboBox.SelectedItem == "500 001 – 1 000 000₽")
                 {
-                    foreach (var ScannerForThirdChecking in FilterList) if ((ScannerForThirdChecking.price < 500001) && (ScannerForThirdChecking.price > 1000000)) TempList.Add(ScannerForThirdChecking);
+                    foreach (var ScannerForThirdChecking in FilterList) if ((ScannerForThirdChecking.price >= 500001) && (ScannerForThirdChecking.price < 1000000)) TempList.Add(ScannerForThirdChecking);
 
                     FilterList = TempList;
 
@@ -108,7 +108,7 @@ namespace SearchEngine
 
                 else if (PriceComboBox.SelectedItem == "1 000 001 - 2 000 000₽")
                 {
-                    foreach (var ScannerForFourthChecking in FilterList) if ((ScannerForFourthChecking.price < 1000001) && (ScannerForFourthChecking.price > 2000000)) TempList.Add(ScannerForFourthChecking);
+                    foreach (var ScannerForFourthChecking in FilterList) if ((ScannerForFourthChecking.price >= 1000001) && (ScannerForFourthChecking.price < 2000000)) TempList.Add(ScannerForFourthChecking);
 
                     FilterList = TempList;
 
@@ -117,7 +117,7 @@ namespace SearchEngine
 
                 else if (PriceComboBox.SelectedItem == "2 000 001 - 3 000 000₽")
                 {
-                    foreach (var ScannerForFifthChecking in FilterList) if ((ScannerForFifthChecking.price < 2000001) && (ScannerForFifthChecking.price > 3000000)) TempList.Add(ScannerForFifthChecking);
+                    foreach (var ScannerForFifthChecking in FilterList) if ((ScannerForFifthChecking.price >= 2000001) && (ScannerForFifthChecking.price < 3000000)) TempList.Add(ScannerForFifthChecking);
 
                     FilterList = TempList;
 
@@ -126,7 +126,7 @@ namespace SearchEngine
 
                 else if (PriceComboBox.SelectedItem == "3 000 001 - 4 000 000₽")
                 {
-                    foreach (var ScannerForSixthChecking in FilterList) if ((ScannerForSixthChecking.price < 3000001) && (ScannerForSixthChecking.price > 4000000)) TempList.Add(ScannerForSixthChecking);
+                    foreach (var ScannerForSixthChecking in FilterList) if ((ScannerForSixthChecking.price >= 3000001) && (ScannerForSixthChecking.price < 4000000)) TempList.Add(ScannerForSixthChecking);
 
                     FilterList = TempList;
 
@@ -135,7 +135,7 @@ namespace SearchEngine
 
                 else if (PriceComboBox.SelectedItem == "4 000 001 - 5 000 000₽")
                 {
-                    foreach (var ScannerForSeventhChecking in FilterList) if ((ScannerForSeventhChecking.price < 4000001) && (ScannerForSeventhChecking.price > 5000000)) TempList.Add(ScannerForSeventhChecking);
+                    foreach (var ScannerForSeventhChecking in FilterList) if ((ScannerForSeventhChecking.price >= 4000001) && (ScannerForSeventhChecking.price < 5000000)) TempList.Add(ScannerForSeventhChecking);
 
                     FilterList = TempList;
 
@@ -144,7 +144,7 @@ namespace SearchEngine
 
                 else if (PriceComboBox.SelectedItem == "Более 5 000 000₽")
                 {
-                    foreach (var ScannerForEighthChecking in FilterList) if (ScannerForEighthChecking.price <= 5000000) FilterList.Add(ScannerForEighthChecking);
+                    foreach (var ScannerForEighthChecking in FilterList) if (ScannerForEighthChecking.price > 5000000) TempList.Add(ScannerForEighthChecking);
 
                     FilterList = TempList;
 

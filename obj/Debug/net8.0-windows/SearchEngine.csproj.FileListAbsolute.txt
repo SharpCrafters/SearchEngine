@@ -404,3 +404,5 @@ C:\Users\Eliza\OneDrive\Рабочий стол\3D-сканер\obj\Debug\net8.0
 C:\Users\Eliza\OneDrive\Рабочий стол\3D-сканер\obj\Debug\net8.0-windows\SearchEngine.pdb
 C:\Users\Eliza\OneDrive\Рабочий стол\3D-сканер\obj\Debug\net8.0-windows\SearchEngine.genruntimeconfig.cache
 C:\Users\Eliza\OneDrive\Рабочий стол\3D-сканер\obj\Debug\net8.0-windows\ref\SearchEngine.dll
+C:\Users\venez\OneDrive\Рабочий стол\SearchEngine\obj\Debug\net8.0-windows\AdministratorMainWindow.g.cs
+C:\Users\venez\OneDrive\Рабочий стол\SearchEngine\obj\Debug\net8.0-windows\AdministratorMainWindow.baml

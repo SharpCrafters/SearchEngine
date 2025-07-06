@@ -32,6 +32,5 @@ namespace SearchEngine
         {
             ScannersTable.ItemsSource = _DataBaseService.GetPreparedForGridList();
         }
-
     }
 }

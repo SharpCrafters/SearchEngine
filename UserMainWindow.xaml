@@ -65,6 +65,7 @@
                           VerticalAlignment="Top"
                           AutoGenerateColumns="False"
                           CanUserAddRows="False"
+                          CanUserDeleteRows="False"
                           Height="355">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID" IsReadOnly="True" Binding="{Binding id, UpdateSourceTrigger=PropertyChanged}"/>
@@ -73,7 +74,7 @@
                                 <DataGridTextColumn Header="Технология" IsReadOnly="True" Binding="{Binding technology, UpdateSourceTrigger=PropertyChanged}"/>
                                 <DataGridTextColumn Header="Точность" IsReadOnly="True" Binding="{Binding accuracy, UpdateSourceTrigger=PropertyChanged}"/>
                                 <DataGridTextColumn Header="Скорость" IsReadOnly="True" Binding="{Binding speed, UpdateSourceTrigger=PropertyChanged}"/>
-                                <DataGridTextColumn Header="Формат" IsReadOnly="True" Binding="{Binding colorcapture, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Захват цвета" IsReadOnly="True" Binding="{Binding colorcapture, UpdateSourceTrigger=PropertyChanged}"/>
                                 <DataGridTextColumn Header="Цена" IsReadOnly="True" Binding="{Binding price, UpdateSourceTrigger=PropertyChanged}"/>
                                 <DataGridTextColumn Header="Год выпуска" IsReadOnly="True" Binding="{Binding release, UpdateSourceTrigger=PropertyChanged}"/>
                                 <DataGridTextColumn Header="Описание" IsReadOnly="True" Binding="{Binding description, UpdateSourceTrigger=PropertyChanged}"/>

@@ -271,7 +271,7 @@ namespace SearchEngine
 
     public class SearchWindowViewModel : INotifyPropertyChanged
     {
-        DataBaseService DataBaseService = new DataBaseService();
+        DataBaseService _DataBaseService = new DataBaseService();
 
         public ObservableCollection<string> Technologies { get; } = new ObservableCollection<string>();
         public ObservableCollection<string> Prices { get; } = new ObservableCollection<string>();
@@ -290,7 +290,7 @@ namespace SearchEngine
             // Загрузка производителей
             Creators.Clear();
             Creators.Add("Все");
-            var CreatorsList = DataBaseService.GetCreatorNames();
+            var CreatorsList = _DataBaseService.GetCreatorNames();
             foreach (var Creator in CreatorsList)
             {
                 Creators.Add(Creator);
@@ -298,7 +298,7 @@ namespace SearchEngine
 
             ReleaseYears.Clear();
             ReleaseYears.Add("Все");
-            var ReleaseYearsList = DataBaseService.GetReleaseYears();
+            var ReleaseYearsList = _DataBaseService.GetReleaseYears();
             foreach (var Year in ReleaseYearsList)
             {
                 ReleaseYears.Add(Year.ToString());
@@ -306,7 +306,7 @@ namespace SearchEngine
 
             Technologies.Clear();
             Technologies.Add("Все");
-            var TechnologiesList = DataBaseService.GetTechnologyNames();
+            var TechnologiesList = _DataBaseService.GetTechnologyNames();
             foreach (var Technology in TechnologiesList)
             {
                 Technologies.Add(Technology);
@@ -336,6 +336,4 @@ namespace SearchEngine
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
-
-
 }

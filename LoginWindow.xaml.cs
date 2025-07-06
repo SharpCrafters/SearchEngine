@@ -74,11 +74,11 @@ namespace SearchEngine
                         SuccessfulMessage.ShowDialog();
                     }
 
-                    if (UserNameTextBox.Text == "admin")
+                    else if (UserNameTextBox.Text == "admin")
                     {
                         Window SuccessfulMessage = null;
 
-                        UserMainWindow MainWindow = new UserMainWindow();
+                        AdministratorMainWindow MainWindow = new AdministratorMainWindow();
 
                         SuccessfulMessage = new Window
                         {

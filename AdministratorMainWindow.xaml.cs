@@ -386,7 +386,7 @@ namespace SearchEngine
                     new System.Windows.Controls.Button
                     {
                         Background = (Brush)new BrushConverter().ConvertFrom("#373737"),
-                        Content = "Очень жаль!",
+                        Content = "Сейчас исправим!",
                         Margin = new Thickness(0, 0, 10, 0),
                         BorderBrush = new SolidColorBrush(Color.FromRgb(55,55,55)),
                         Foreground = (Brush)new BrushConverter().ConvertFrom("#D9D9D9"),
@@ -404,7 +404,6 @@ namespace SearchEngine
 
                         ErrorMessage.ShowDialog();
                     }
-                    ;
                 }
             }
         }
@@ -1076,7 +1075,9 @@ namespace SearchEngine
         }
         private void AddingScannerButtonClick(object sender, RoutedEventArgs e)
         {
+            AddingScannerWindow AddingScannerWindow = new AddingScannerWindow();
 
+            AddingScannerWindow.Show();
         }
 
     }

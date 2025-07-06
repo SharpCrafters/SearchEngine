@@ -1,9 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 namespace SearchEngine
 {
@@ -37,7 +32,7 @@ namespace SearchEngine
 
         public int GetCreatorIdByName(string CreatorName)
         {
-            foreach (var Creator in _DataBase.Creator) if (Creator.name ==  CreatorName) return Creator.id;
+            foreach (var Creator in _DataBase.Creator) if (Creator.name == CreatorName) return Creator.id;
 
             return 0;
         }

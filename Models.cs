@@ -2,9 +2,9 @@
 
 namespace SearchEngine
 {
-    public static class PreparedList 
+    public static class PreparedList
     {
-       public static List<ScannerDataGrid> List { get; set; }
+        public static List<ScannerDataGrid> List { get; set; }
 
     }
 
@@ -43,7 +43,7 @@ namespace SearchEngine
     public class Scanner
     {
         [Key]
-        public int id {  get; set; }
+        public int id { get; set; }
 
         public string? name { get; set; }
 

@@ -6,6 +6,40 @@ namespace SearchEngine
     {
         private readonly AccessDbContext _DataBase = new AccessDbContext();
 
+        public bool IsScannerNameRepeated(Scanner Scanner)
+        {
+            if (!string.IsNullOrWhiteSpace(Scanner.name)) return false;
+
+            foreach (var _Scanner in _DataBase.Scanner) if ((_Scanner.name == Scanner.name) && (_Scanner.id != Scanner.id)) return true;
+
+            return false;
+        }
+
+        public bool IsCreatorNameRepeated(Creator Creator)
+        {
+            if (string.IsNullOrWhiteSpace(Creator.name)) return false;
+
+            foreach (var _Creator in _DataBase.Creator) if ((_Creator.name == Creator.name) && (_Creator.id != Creator.id)) return true;
+
+            return false;
+        }
+
+        public bool IsTechnologyNameRepeated(Technology Technology)
+        {
+            if (string.IsNullOrWhiteSpace(Technology.name)) return false;
+
+            foreach (var _Technology in _DataBase.Technology) if ((_Technology.name == Technology.name) && (_Technology.id != Technology.id)) return true;
+
+            return false;
+        }
+
+        public bool IsScannerNameExist(string ScannerName)
+        {
+            foreach (var Scanner in _DataBase.Scanner) if (ScannerName == ScannerName) return true;
+
+            return false;
+        }
+
         public void GetCreatorTableData(DataGrid CreatorsTable)
         {
             CreatorsTable.ItemsSource = _DataBase.Creator.ToList();
@@ -36,6 +70,7 @@ namespace SearchEngine
 
             return 0;
         }
+
         public string GetTechnologyNameById(int TechnologyId)
         {
             foreach (var Technology in _DataBase.Technology) if (Technology.id == TechnologyId) return Technology.name;
@@ -171,11 +206,13 @@ namespace SearchEngine
             _DataBase.Update(Technology);
             _DataBase.SaveChanges();
         }
+
         public void SaveCreator(Creator Creator)
         {
             _DataBase.Update(Creator);
             _DataBase.SaveChanges();
         }
+
         public void SaveScannerByDataGrid(ScannerDataGrid SelectedScanner)
         {
             var _Scanner = GetScannerById(SelectedScanner.id);

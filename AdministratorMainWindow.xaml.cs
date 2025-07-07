@@ -257,6 +257,7 @@ namespace SearchEngine
                 if (DialogResult == true)
                 {
                     bool IsNameGood = true;
+                    bool IsNameNotRepeated = true;
                     bool IsAccuracyGood = true;
                     bool IsSpeedGood = true;
                     bool IsPriceGood = true;
@@ -266,6 +267,11 @@ namespace SearchEngine
                     if (string.IsNullOrWhiteSpace(SelectedScannerTableItem.name))
                     {
                         IsNameGood = false;
+                    }
+
+                    if (_DataBaseService.IsScannerNameRepeated(_DataBaseService.GetScannerById(SelectedScannerTableItem.id)))
+                    {
+                        IsNameNotRepeated = false;
                     }
 
                     if (SelectedScannerTableItem.accuracy <= 0)
@@ -293,7 +299,7 @@ namespace SearchEngine
                         IsDescriptionGood = false;
                     }
 
-                    if (IsNameGood && IsAccuracyGood && IsSpeedGood && IsPriceGood && IsYearGood && IsDescriptionGood)
+                    if (IsNameGood && IsNameNotRepeated && IsAccuracyGood && IsSpeedGood && IsPriceGood && IsYearGood && IsDescriptionGood)
                     {
                         _DataBaseService.SaveScannerByDataGrid(SelectedScannerTableItem);
 
@@ -345,6 +351,7 @@ namespace SearchEngine
                     else
                     {
                         string NameError = "";
+                        string NameRepeatedError = "";
                         string AccuracyError = "";
                         string SpeedError = "";
                         string PriceError = "";
@@ -352,6 +359,7 @@ namespace SearchEngine
                         string DescriptionError = "";
 
                         if (!IsNameGood) NameError = $"Имя: \"{SelectedScannerTableItem.name}\"\n";
+                        if (!IsNameNotRepeated) NameRepeatedError = "(повторяющееся имя)\n";
                         if (!IsAccuracyGood) AccuracyError = $"Точность: {SelectedScannerTableItem.accuracy}\n";
                         if (!IsSpeedGood) SpeedError = $"Скорость: {SelectedScannerTableItem.speed}\n";
                         if (!IsPriceGood) PriceError = $"Стоимость: {SelectedScannerTableItem.price}\n";
@@ -376,7 +384,7 @@ namespace SearchEngine
             new TextBlock
             {
                 Text = $"Не удалось сохранить информацию о сканере, поскольку:\n" +
-                       $"{NameError}{AccuracyError}{SpeedError}{PriceError}{ReleaseError}{DescriptionError}",
+                       $"{NameError}{NameRepeatedError}{AccuracyError}{SpeedError}{PriceError}{ReleaseError}{DescriptionError}",
                 HorizontalAlignment = HorizontalAlignment.Center,
                 FontSize = 16,
                 Margin = new Thickness(0, 0, 0, 20),
@@ -618,13 +626,19 @@ namespace SearchEngine
                 if (DialogResult == true)
                 {
                     bool IsNameGood = true;
+                    bool IsNameNotRepeated = true;
 
                     if (string.IsNullOrWhiteSpace(SelectedCreator.name))
                     {
                         IsNameGood = false;
                     }
 
-                    if (IsNameGood)
+                    if (_DataBaseService.IsCreatorNameRepeated(SelectedCreator))
+                    {
+                        IsNameNotRepeated = false;
+                    }
+
+                    if ((IsNameGood) && (IsNameNotRepeated))
                     {
                         _DataBaseService.SaveCreator(SelectedCreator);
 
@@ -676,8 +690,10 @@ namespace SearchEngine
                     else
                     {
                         string NameError = "";
+                        string NameRepeatedError = "";
 
                         if (!IsNameGood) NameError = $"Имя: \"{SelectedCreator.name}\"\n";
+                        if (!IsNameNotRepeated) NameRepeatedError = "(повторяющееся имя)\n";
 
                         Window ErrorMessage = null;
 
@@ -697,7 +713,7 @@ namespace SearchEngine
             new TextBlock
             {
                 Text = $"Не удалось сохранить информацию о производителе, поскольку:\n" +
-                       $"{NameError}",
+                       $"{NameError}{NameRepeatedError}",
                 HorizontalAlignment = HorizontalAlignment.Center,
                 FontSize = 16,
                 Margin = new Thickness(0, 0, 0, 20),
@@ -940,13 +956,19 @@ namespace SearchEngine
                 if (DialogResult == true)
                 {
                     bool IsNameGood = true;
+                    bool IsNameNotRepeated = true;
 
                     if (string.IsNullOrWhiteSpace(SelectedTechnology.name))
                     {
                         IsNameGood = false;
                     }
 
-                    if (IsNameGood)
+                    if (_DataBaseService.IsTechnologyNameRepeated(SelectedTechnology))
+                    {
+                        IsNameNotRepeated = false;
+                    }
+
+                    if ((IsNameGood) && (IsNameNotRepeated))
                     {
                         _DataBaseService.SaveTechnology(SelectedTechnology);
 
@@ -998,8 +1020,10 @@ namespace SearchEngine
                     else
                     {
                         string NameError = "";
+                        string NameRepeatedError = "";
 
                         if (!IsNameGood) NameError = $"Имя: \"{SelectedTechnology.name}\"\n";
+                        if (!IsNameNotRepeated) NameRepeatedError = "(повторяющееся имя)\n";
 
                         Window ErrorMessage = null;
 
@@ -1019,7 +1043,7 @@ namespace SearchEngine
             new TextBlock
             {
                 Text = $"Не удалось сохранить информацию о технологии, поскольку:\n" +
-                       $"{NameError}",
+                       $"{NameError}{NameRepeatedError}",
                 HorizontalAlignment = HorizontalAlignment.Center,
                 FontSize = 16,
                 Margin = new Thickness(0, 0, 0, 20),

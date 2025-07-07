@@ -25,6 +25,7 @@ namespace SearchEngine
         private void AddingNewScannerButtonClick(object sender, RoutedEventArgs e)
         {
             bool IsNameGood = !string.IsNullOrWhiteSpace(NameTextBox.Text);
+            bool IsNameNotExist = true;
             bool IsCreatorSelected = CreatorComboBox.SelectedItem != null;
             bool IsTechnologySelected = TechnologyComboBox.SelectedItem != null;
             bool IsAccuracyGood = true;
@@ -35,6 +36,11 @@ namespace SearchEngine
             bool IsDescriptionGood = !string.IsNullOrWhiteSpace(DescriptionTextBox.Text);
 
             int SelectedSpeed = 0, SelectedAccuracy = 0, SelectedPrice = 0, SelectedReleaseYear = 0;
+
+            if (_DataBaseService.IsScannerNameExist(NameTextBox.Text))
+            {
+                IsNameNotExist = false;
+            }
 
             if (!int.TryParse(SpeedTextBox.Text, out SelectedSpeed))
             {
@@ -58,7 +64,7 @@ namespace SearchEngine
 
             else if ((SelectedReleaseYear < 1970) && (SelectedReleaseYear > 2025)) IsReleaseYearGood = false;
 
-            if (IsNameGood && IsCreatorSelected && IsTechnologySelected && IsAccuracyGood && IsSpeedGood &&
+            if (IsNameGood && IsNameNotExist && IsCreatorSelected && IsTechnologySelected && IsAccuracyGood && IsSpeedGood &&
                 IsColorCaptureSelected && IsPriceGood && IsReleaseYearGood && IsDescriptionGood)
             {
                 var NewScanner = new ScannerDataGrid()
@@ -129,6 +135,7 @@ namespace SearchEngine
             else
             {
                 string NameError = "";
+                string NameExistError = "";
                 string CreatorError = "";
                 string TechnologyError = "";
                 string AccuracyError = "";
@@ -139,6 +146,7 @@ namespace SearchEngine
                 string DescriptionError = "";
 
                 if (!IsNameGood) NameError = $"Имя: \"{NameTextBox.Text}\"\n";
+                if (!IsNameNotExist) NameExistError = "(сканер с таким именем уже существует) \n";
                 if (!IsCreatorSelected) CreatorError = $"Не выбран производитель\n";
                 if (!IsTechnologySelected) TechnologyError = $"Не выбрана технология\n";
                 if (!IsAccuracyGood) AccuracyError = $"Точность: {AccuracyTextBox.Text}\n";
@@ -166,7 +174,7 @@ namespace SearchEngine
             new TextBlock
             {
                 Text = $"Не удалось добавить новый сканер, поскольку:\n" +
-                       $"{NameError}{CreatorError}{TechnologyError}{AccuracyError}{SpeedError}{ColorCaptureError}{PriceError}{ReleaseError}{DescriptionError}",
+                       $"{NameError}{NameExistError}{CreatorError}{TechnologyError}{AccuracyError}{SpeedError}{ColorCaptureError}{PriceError}{ReleaseError}{DescriptionError}",
                 HorizontalAlignment = HorizontalAlignment.Center,
                 FontSize = 16,
                 Margin = new Thickness(0, 0, 0, 20),

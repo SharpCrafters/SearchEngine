@@ -52,7 +52,10 @@ namespace SearchEngine
 
         public bool IsUserExist(string Name, string Password)
         {
-            foreach (var User in _DataBase.User) if ((User.name == Name) && (User.password == Password)) return true;
+
+            string hashedPassword = PasswordHasher.HashPassword("user");
+
+            foreach (var User in _DataBase.User) if ((User.name == Name) && (User.VerifyPassword(Password, User.PasswordHash))) return true;
 
             return false;
         }

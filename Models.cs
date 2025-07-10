@@ -126,20 +126,33 @@ namespace SearchEngine
 
     public class User
     {
+
         [Key]
         public int id { get; set; }
 
         public string? name { get; set; }
 
-        public string? password { get; set; }
+        public string? PasswordHash { get; set; }
 
         public User() { }
 
-        public User(int id, string? name, string? password)
+        public User(int id, string? name, string? PasswordHash)
         {
             this.id = id;
             this.name = name;
-            this.password = password;
+            this.PasswordHash = PasswordHash;
+        }
+
+        // Метод для установки пароля
+        public void SetPassword(string password)
+        {
+            PasswordHash = PasswordHasher.HashPassword(password);
+        }
+
+        // Метод для проверки пароля
+        public bool VerifyPassword(string password, string PasswordHash)
+        {
+            return PasswordHasher.VerifyPassword(password, PasswordHash);
         }
 
         ~User() { }

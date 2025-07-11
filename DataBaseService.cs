@@ -4,31 +4,31 @@ namespace SearchEngine
 {
     internal class DataBaseService
     {
-        private readonly AccessDbContext _DataBase = new AccessDbContext();
+        private readonly ApplicationContext _DataBase = new ApplicationContext();
 
         public bool IsScannerNameRepeated(Scanner Scanner)
         {
-            if (!string.IsNullOrWhiteSpace(Scanner.name)) return false;
+            if (!string.IsNullOrWhiteSpace(Scanner.Name)) return false;
 
-            foreach (var _Scanner in _DataBase.Scanner) if ((_Scanner.name == Scanner.name) && (_Scanner.id != Scanner.id)) return true;
+            foreach (var _Scanner in _DataBase.Scanner) if ((_Scanner.Name == Scanner.Name) && (_Scanner.id != Scanner.id)) return true;
 
             return false;
         }
 
         public bool IsCreatorNameRepeated(Creator Creator)
         {
-            if (string.IsNullOrWhiteSpace(Creator.name)) return false;
+            if (string.IsNullOrWhiteSpace(Creator.Name)) return false;
 
-            foreach (var _Creator in _DataBase.Creator) if ((_Creator.name == Creator.name) && (_Creator.id != Creator.id)) return true;
+            foreach (var _Creator in _DataBase.Creator) if ((_Creator.Name == Creator.Name) && (_Creator.id != Creator.id)) return true;
 
             return false;
         }
 
         public bool IsTechnologyNameRepeated(Technology Technology)
         {
-            if (string.IsNullOrWhiteSpace(Technology.name)) return false;
+            if (string.IsNullOrWhiteSpace(Technology.Name)) return false;
 
-            foreach (var _Technology in _DataBase.Technology) if ((_Technology.name == Technology.name) && (_Technology.id != Technology.id)) return true;
+            foreach (var _Technology in _DataBase.Technology) if ((_Technology.Name == Technology.Name) && (_Technology.id != Technology.id)) return true;
 
             return false;
         }
@@ -55,35 +55,35 @@ namespace SearchEngine
 
             string hashedPassword = PasswordHasher.HashPassword("user");
 
-            foreach (var User in _DataBase.User) if ((User.name == Name) && (User.VerifyPassword(Password, User.PasswordHash))) return true;
+            foreach (var User in _DataBase.User) if ((User.Name == Name) && (User.VerifyPassword(Password, User.PasswordHash))) return true;
 
             return false;
         }
 
         public string GetCreatorNameById(int CreatorId)
         {
-            foreach (var Creator in _DataBase.Creator) if (Creator.id == CreatorId) return Creator.name;
+            foreach (var Creator in _DataBase.Creator) if (Creator.id == CreatorId) return Creator.Name;
 
             return "";
         }
 
         public int GetCreatorIdByName(string CreatorName)
         {
-            foreach (var Creator in _DataBase.Creator) if (Creator.name == CreatorName) return Creator.id;
+            foreach (var Creator in _DataBase.Creator) if (Creator.Name == CreatorName) return Creator.id;
 
             return 0;
         }
 
         public string GetTechnologyNameById(int TechnologyId)
         {
-            foreach (var Technology in _DataBase.Technology) if (Technology.id == TechnologyId) return Technology.name;
+            foreach (var Technology in _DataBase.Technology) if (Technology.id == TechnologyId) return Technology.Name;
 
             return "";
         }
 
         public int GetTechnologyIdByName(string TechnologyName)
         {
-            foreach (var Technology in _DataBase.Technology) if (Technology.name == TechnologyName) return Technology.id;
+            foreach (var Technology in _DataBase.Technology) if (Technology.Name == TechnologyName) return Technology.id;
 
             return 0;
         }
@@ -100,15 +100,15 @@ namespace SearchEngine
             {
                 ScannerDataGrid ScannerForGrid = new ScannerDataGrid();
                 ScannerForGrid.id = Scanner.id;
-                ScannerForGrid.name = Scanner.name;
-                ScannerForGrid.creator = GetCreatorNameById(Scanner.creator);
-                ScannerForGrid.technology = GetTechnologyNameById(Scanner.technology);
-                ScannerForGrid.accuracy = Scanner.accuracy;
-                ScannerForGrid.speed = Scanner.speed;
-                ScannerForGrid.colorcapture = Scanner.colorcapture;
-                ScannerForGrid.price = Scanner.price;
-                ScannerForGrid.release = Scanner.release;
-                ScannerForGrid.description = Scanner.description;
+                ScannerForGrid.Name = Scanner.Name;
+                ScannerForGrid.Creator = GetCreatorNameById(Scanner.Creator);
+                ScannerForGrid.Technology = GetTechnologyNameById(Scanner.Technology);
+                ScannerForGrid.Accuracy = Scanner.Accuracy;
+                ScannerForGrid.Speed = Scanner.Speed;
+                ScannerForGrid.ColorCapture = Scanner.ColorCapture;
+                ScannerForGrid.Price = Scanner.Price;
+                ScannerForGrid.Release = Scanner.Release;
+                ScannerForGrid.Description = Scanner.Description;
 
                 PreparedList.Add(ScannerForGrid);
             }
@@ -120,7 +120,7 @@ namespace SearchEngine
         {
             List<string> CreatorNames = new List<string>();
 
-            foreach (var Creator in _DataBase.Creator) CreatorNames.Add(Creator.name);
+            foreach (var Creator in _DataBase.Creator) CreatorNames.Add(Creator.Name);
 
             return CreatorNames;
         }
@@ -129,7 +129,7 @@ namespace SearchEngine
         {
             List<int> ReleaseYears = new List<int>();
 
-            foreach (var Scanner in _DataBase.Scanner) if (!ReleaseYears.Contains(Scanner.release)) ReleaseYears.Add(Scanner.release);
+            foreach (var Scanner in _DataBase.Scanner) if (!ReleaseYears.Contains(Scanner.Release)) ReleaseYears.Add(Scanner.Release);
 
             return ReleaseYears;
         }
@@ -138,7 +138,7 @@ namespace SearchEngine
         {
             List<string> TechnologyNames = new List<string>();
 
-            foreach (var Technology in _DataBase.Technology) TechnologyNames.Add(Technology.name);
+            foreach (var Technology in _DataBase.Technology) TechnologyNames.Add(Technology.Name);
 
             return TechnologyNames;
         }
@@ -190,7 +190,7 @@ namespace SearchEngine
         {
             List<Scanner> RequiredScanners = new List<Scanner>();
 
-            foreach (Scanner Scanner in _DataBase.Scanner) if (Scanner.creator == CreatorId) RequiredScanners.Add(Scanner);
+            foreach (Scanner Scanner in _DataBase.Scanner) if (Scanner.Creator == CreatorId) RequiredScanners.Add(Scanner);
 
             return RequiredScanners;
         }
@@ -199,7 +199,7 @@ namespace SearchEngine
         {
             List<Scanner> RequiredScanners = new List<Scanner>();
 
-            foreach (Scanner Scanner in _DataBase.Scanner) if (Scanner.technology == TechnologyId) RequiredScanners.Add(Scanner);
+            foreach (Scanner Scanner in _DataBase.Scanner) if (Scanner.Technology == TechnologyId) RequiredScanners.Add(Scanner);
 
             return RequiredScanners;
         }
@@ -220,15 +220,15 @@ namespace SearchEngine
         {
             var _Scanner = GetScannerById(SelectedScanner.id);
 
-            _Scanner.name = SelectedScanner.name;
-            _Scanner.creator = GetCreatorIdByName(SelectedScanner.creator);
-            _Scanner.technology = GetTechnologyIdByName(SelectedScanner.technology);
-            _Scanner.accuracy = SelectedScanner.accuracy;
-            _Scanner.speed = SelectedScanner.speed;
-            _Scanner.colorcapture = SelectedScanner.colorcapture;
-            _Scanner.price = SelectedScanner.price;
-            _Scanner.release = SelectedScanner.release;
-            _Scanner.description = SelectedScanner.description;
+            _Scanner.Name = SelectedScanner.Name;
+            _Scanner.Creator = GetCreatorIdByName(SelectedScanner.Creator);
+            _Scanner.Technology = GetTechnologyIdByName(SelectedScanner.Technology);
+            _Scanner.Accuracy = SelectedScanner.Accuracy;
+            _Scanner.Speed = SelectedScanner.Speed;
+            _Scanner.ColorCapture = SelectedScanner.ColorCapture;
+            _Scanner.Price = SelectedScanner.Price;
+            _Scanner.Release = SelectedScanner.Release;
+            _Scanner.Description = SelectedScanner.Description;
 
             _DataBase.Update(_Scanner);
             _DataBase.SaveChanges();

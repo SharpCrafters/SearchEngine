@@ -5,7 +5,6 @@ namespace SearchEngine
     public static class PreparedList
     {
         public static List<ScannerDataGrid> List { get; set; }
-
     }
 
     public class Creator
@@ -13,14 +12,14 @@ namespace SearchEngine
         [Key]
         public int id { get; set; }
 
-        public string? name { get; set; }
+        public string? Name { get; set; }
 
         public Creator() { }
 
-        public Creator(int id, string? name)
+        public Creator(int id, string? Name)
         {
             this.id = id;
-            this.name = name;
+            this.Name = Name;
         }
     }
 
@@ -29,14 +28,14 @@ namespace SearchEngine
         [Key]
         public int id { get; set; }
 
-        public string? name { get; set; }
+        public string? Name { get; set; }
 
         public Technology() { }
 
-        public Technology(int id, string? name)
+        public Technology(int id, string? Name)
         {
             this.id = id;
-            this.name = name;
+            this.Name = Name;
         }
     }
 
@@ -45,41 +44,40 @@ namespace SearchEngine
         [Key]
         public int id { get; set; }
 
-        public string? name { get; set; }
+        public string? Name { get; set; }
 
-        public int creator { get; set; }
+        public int Creator { get; set; }
 
-        public int technology { get; set; }
+        public int Technology { get; set; }
 
-        public int accuracy { get; set; }
+        public int Accuracy { get; set; }
 
-        public int speed { get; set; }
+        public int Speed { get; set; }
 
-        public string? colorcapture { get; set; }
+        public string? ColorCapture { get; set; }
 
-        public int price { get; set; }
+        public double Price { get; set; }
 
-        public int release { get; set; }
+        public int Release { get; set; }
 
-        public string? description { get; set; }
+        public string? Description { get; set; }
 
         public Scanner() { }
 
-        public Scanner(int id, string? name, int creator, int technology, int accuracy, int speed, string? colorcapture, int price, int release, string? description)
+        public Scanner(int id, string? Name, int Creator, int Technology, int Accuracy, 
+                       int Speed, string? ColorCapture, double Price, int Release, string? Description)
         {
             this.id = id;
-            this.name = name;
-            this.creator = creator;
-            this.technology = technology;
-            this.accuracy = accuracy;
-            this.speed = speed;
-            this.colorcapture = colorcapture;
-            this.price = price;
-            this.release = release;
-            this.description = description;
+            this.Name = Name;
+            this.Creator = Creator;
+            this.Technology = Technology;
+            this.Accuracy = Accuracy;
+            this.Speed = Speed;
+            this.ColorCapture = ColorCapture;
+            this.Price = Price;
+            this.Release = Release;
+            this.Description = Description;
         }
-
-        ~Scanner() { }
     }
 
     public class ScannerDataGrid
@@ -87,41 +85,40 @@ namespace SearchEngine
         [Key]
         public int id { get; set; }
 
-        public string? name { get; set; }
+        public string? Name { get; set; }
 
-        public string? creator { get; set; }
+        public string? Creator { get; set; }
 
-        public string? technology { get; set; }
+        public string? Technology { get; set; }
 
-        public int accuracy { get; set; }
+        public int Accuracy { get; set; }
 
-        public int speed { get; set; }
+        public int Speed { get; set; }
 
-        public string? colorcapture { get; set; }
+        public string? ColorCapture { get; set; }
 
-        public int price { get; set; }
+        public double Price { get; set; }
 
-        public int release { get; set; }
+        public int Release { get; set; }
 
-        public string? description { get; set; }
+        public string? Description { get; set; }
 
         public ScannerDataGrid() { }
 
-        public ScannerDataGrid(int id, string? name, string? creator, string? technology, int accuracy, int speed, string? colorcapture, int price, int release, string? description)
+        public ScannerDataGrid(int id, string? Name, string? Creator, string? Technology, int Accuracy, 
+                               int Speed, string? ColorCapture, double Price, int Release, string? Description)
         {
             this.id = id;
-            this.name = name;
-            this.creator = creator;
-            this.technology = technology;
-            this.accuracy = accuracy;
-            this.speed = speed;
-            this.colorcapture = colorcapture;
-            this.price = price;
-            this.release = release;
-            this.description = description;
+            Name = Name;
+            Creator = Creator;
+            Technology = Technology;
+            Accuracy = Accuracy;
+            Speed = Speed;
+            ColorCapture = ColorCapture;
+            Price = Price;
+            Release = Release;
+            Description = Description;
         }
-
-        ~ScannerDataGrid() { }
     }
 
     public class User
@@ -130,16 +127,16 @@ namespace SearchEngine
         [Key]
         public int id { get; set; }
 
-        public string? name { get; set; }
+        public string? Name { get; set; }
 
         public string? PasswordHash { get; set; }
 
         public User() { }
 
-        public User(int id, string? name, string? PasswordHash)
+        public User(int id, string? Name, string? PasswordHash)
         {
             this.id = id;
-            this.name = name;
+            this.Name = Name;
             this.PasswordHash = PasswordHash;
         }
 

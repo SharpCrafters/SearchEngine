@@ -2,7 +2,7 @@
 
 namespace SearchEngine
 {
-    public class AccessDbContext : DbContext
+    public class ApplicationContext : DbContext
     {
         public DbSet<Scanner> Scanner { get; set; } = null!;
 
@@ -14,7 +14,7 @@ namespace SearchEngine
 
         protected override void OnConfiguring(DbContextOptionsBuilder OptionsBuilder)
         {
-            OptionsBuilder.UseJet(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=SearchEngine.accdb;");
+            OptionsBuilder.UseSqlite(@"Data Source=Scanners.db");
         }
     }
 }

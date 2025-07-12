@@ -9,6 +9,7 @@
         Title="Поиск сканера" 
         Height="350" 
         Width="500"
+        ResizeMode="CanMinimize"
         Icon="/Resources/Logo.ico">
 
     <Grid>

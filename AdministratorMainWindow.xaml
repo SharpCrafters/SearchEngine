@@ -78,18 +78,18 @@
                                   KeyDown="ScannersTableKeyDown">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="ID" IsReadOnly="True" Binding="{Binding id, UpdateSourceTrigger=PropertyChanged}"/>
-                                        <DataGridTextColumn Header="Название" IsReadOnly="False" Binding="{Binding name, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="Название" IsReadOnly="False" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
                                         <DataGridTemplateColumn Header="Производитель">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock Text="{Binding creator}"/>
+                                                    <TextBlock Text="{Binding Creator}"/>
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                             <DataGridTemplateColumn.CellEditingTemplate>
                                                 <DataTemplate>
                                                     <ComboBox ItemsSource="{Binding DataContext.Creators, 
                                                               RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                                              SelectedItem="{Binding creator, UpdateSourceTrigger=PropertyChanged}"
+                                                              SelectedItem="{Binding Creator, UpdateSourceTrigger=PropertyChanged}"
                                                               SelectedValuePath="."/>
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellEditingTemplate>
@@ -97,38 +97,38 @@
                                         <DataGridTemplateColumn Header="Технология">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock Text="{Binding technology}"/>
+                                                    <TextBlock Text="{Binding Technology}"/>
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                             <DataGridTemplateColumn.CellEditingTemplate>
                                                 <DataTemplate>
                                                     <ComboBox ItemsSource="{Binding DataContext.Technologies, 
                                                               RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                                              SelectedItem="{Binding technology, UpdateSourceTrigger=PropertyChanged}"
+                                                              SelectedItem="{Binding Technology, UpdateSourceTrigger=PropertyChanged}"
                                                               SelectedValuePath="."/>
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellEditingTemplate>
                                         </DataGridTemplateColumn>
-                                        <DataGridTextColumn Header="Точность (нм)" IsReadOnly="False" Binding="{Binding accuracy, UpdateSourceTrigger=PropertyChanged}"/>
-                                        <DataGridTextColumn Header="Скорость (точек/с)" IsReadOnly="False" Binding="{Binding speed, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="Точность (нм)" IsReadOnly="False" Binding="{Binding Accuracy, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="Скорость (точек/с)" IsReadOnly="False" Binding="{Binding Speed, UpdateSourceTrigger=PropertyChanged}"/>
                                         <DataGridTemplateColumn Header="Захват цвета">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock Text="{Binding colorcapture}"/>
+                                                    <TextBlock Text="{Binding ColorCapture}"/>
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                             <DataGridTemplateColumn.CellEditingTemplate>
                                                 <DataTemplate>
                                                     <ComboBox ItemsSource="{Binding DataContext.ColorCaptureList, 
                                                               RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                                              SelectedItem="{Binding colorcapture, UpdateSourceTrigger=PropertyChanged}"
+                                                              SelectedItem="{Binding ColorCapture, UpdateSourceTrigger=PropertyChanged}"
                                                               SelectedValuePath="."/>
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellEditingTemplate>
                                         </DataGridTemplateColumn>
-                                        <DataGridTextColumn Header="Цена (₽)" IsReadOnly="False" Binding="{Binding price, UpdateSourceTrigger=PropertyChanged}"/>
-                                        <DataGridTextColumn Header="Год выпуска" IsReadOnly="False" Binding="{Binding release, UpdateSourceTrigger=PropertyChanged}"/>
-                                        <DataGridTextColumn Header="Описание" IsReadOnly="False" Binding="{Binding description, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="Цена (₽)" IsReadOnly="False" Binding="{Binding Price, UpdateSourceTrigger=PropertyChanged, StringFormat=N2, ConverterCulture=ru-RU}"/>
+                                        <DataGridTextColumn Header="Год выпуска" IsReadOnly="False" Binding="{Binding Release, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="Описание" IsReadOnly="False" Binding="{Binding Description, UpdateSourceTrigger=PropertyChanged}"/>
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </StackPanel>
@@ -179,7 +179,7 @@
                                           KeyDown="CreatorsTableKeyDown">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="ID" IsReadOnly="True" Binding="{Binding id, UpdateSourceTrigger=PropertyChanged}"/>
-                                        <DataGridTextColumn Header="Имя" IsReadOnly="False" Binding="{Binding name, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="Имя" IsReadOnly="False" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </StackPanel>
@@ -230,7 +230,7 @@
                                           KeyDown="TechologiesTableKeyDown">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="ID" IsReadOnly="True" Binding="{Binding id, UpdateSourceTrigger=PropertyChanged}"/>
-                                        <DataGridTextColumn Header="Название" IsReadOnly="False" Binding="{Binding name, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridTextColumn Header="Название" IsReadOnly="False" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </StackPanel>

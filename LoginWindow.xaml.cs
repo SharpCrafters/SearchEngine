@@ -8,6 +8,7 @@ using GalaSoft.MvvmLight.Command;
 
 namespace SearchEngine
 {
+
     /// <summary>
     /// Interaction logic for LoginWindow.xaml
     /// </summary>
@@ -60,10 +61,10 @@ namespace SearchEngine
             Message.ShowDialog();
         }
 
-        private Window CreateMessageWindow(string MessageText, string Title, bool IsError = false)
-        {
-            Window Window = null;
+        private Window Window;
 
+        private Window CreateMessageWindow(string MessageText, string Title, bool IsError = false)
+        {         
             Window = new Window
             {
                 Title = Title,

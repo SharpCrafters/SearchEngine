@@ -264,7 +264,7 @@ namespace SearchEngine
                     bool IsYearGood = true;
                     bool IsDescriptionGood = true;
 
-                    if (string.IsNullOrWhiteSpace(SelectedScannerTableItem.name))
+                    if (string.IsNullOrWhiteSpace(SelectedScannerTableItem.Name))
                     {
                         IsNameGood = false;
                     }
@@ -274,27 +274,27 @@ namespace SearchEngine
                         IsNameNotRepeated = false;
                     }
 
-                    if (SelectedScannerTableItem.accuracy <= 0)
+                    if (SelectedScannerTableItem.Accuracy <= 0)
                     {
                         IsAccuracyGood = false;
                     }
 
-                    if (SelectedScannerTableItem.speed <= 0)
+                    if (SelectedScannerTableItem.Speed <= 0)
                     {
                         IsSpeedGood = false;
                     }
 
-                    if (SelectedScannerTableItem.price <= 0)
+                    if (SelectedScannerTableItem.Price <= 0)
                     {
                         IsPriceGood = false;
                     }
 
-                    if ((SelectedScannerTableItem.release < 1970) && (SelectedScannerTableItem.release > 2025))
+                    if ((SelectedScannerTableItem.Release < 1970) || (SelectedScannerTableItem.Release > 2025))
                     {
                         IsYearGood = false;
                     }
 
-                    if (string.IsNullOrWhiteSpace(SelectedScannerTableItem.description))
+                    if (string.IsNullOrWhiteSpace(SelectedScannerTableItem.Description))
                     {
                         IsDescriptionGood = false;
                     }
@@ -358,13 +358,13 @@ namespace SearchEngine
                         string ReleaseError = "";
                         string DescriptionError = "";
 
-                        if (!IsNameGood) NameError = $"Имя: \"{SelectedScannerTableItem.name}\"\n";
+                        if (!IsNameGood) NameError = $"Имя: \"{SelectedScannerTableItem.Name}\"\n";
                         if (!IsNameNotRepeated) NameRepeatedError = "(повторяющееся имя)\n";
-                        if (!IsAccuracyGood) AccuracyError = $"Точность: {SelectedScannerTableItem.accuracy}\n";
-                        if (!IsSpeedGood) SpeedError = $"Скорость: {SelectedScannerTableItem.speed}\n";
-                        if (!IsPriceGood) PriceError = $"Стоимость: {SelectedScannerTableItem.price}\n";
-                        if (!IsYearGood) ReleaseError = $"Год выпуска: {SelectedScannerTableItem.release}\n";
-                        if (!IsDescriptionGood) DescriptionError = $"Описание: \"{SelectedScannerTableItem.description}\"\n";
+                        if (!IsAccuracyGood) AccuracyError = $"Точность: {SelectedScannerTableItem.Accuracy}\n";
+                        if (!IsSpeedGood) SpeedError = $"Скорость: {SelectedScannerTableItem.Speed}\n";
+                        if (!IsPriceGood) PriceError = $"Стоимость: {SelectedScannerTableItem.Price}\n";
+                        if (!IsYearGood) ReleaseError = $"Год выпуска: {SelectedScannerTableItem.Release}\n";
+                        if (!IsDescriptionGood) DescriptionError = $"Описание: \"{SelectedScannerTableItem.Description}\"\n";
 
                         Window ErrorMessage = null;
 
@@ -628,7 +628,7 @@ namespace SearchEngine
                     bool IsNameGood = true;
                     bool IsNameNotRepeated = true;
 
-                    if (string.IsNullOrWhiteSpace(SelectedCreator.name))
+                    if (string.IsNullOrWhiteSpace(SelectedCreator.Name))
                     {
                         IsNameGood = false;
                     }
@@ -692,7 +692,7 @@ namespace SearchEngine
                         string NameError = "";
                         string NameRepeatedError = "";
 
-                        if (!IsNameGood) NameError = $"Имя: \"{SelectedCreator.name}\"\n";
+                        if (!IsNameGood) NameError = $"Имя: \"{SelectedCreator.Name}\"\n";
                         if (!IsNameNotRepeated) NameRepeatedError = "(повторяющееся имя)\n";
 
                         Window ErrorMessage = null;
@@ -958,7 +958,7 @@ namespace SearchEngine
                     bool IsNameGood = true;
                     bool IsNameNotRepeated = true;
 
-                    if (string.IsNullOrWhiteSpace(SelectedTechnology.name))
+                    if (string.IsNullOrWhiteSpace(SelectedTechnology.Name))
                     {
                         IsNameGood = false;
                     }
@@ -1022,7 +1022,7 @@ namespace SearchEngine
                         string NameError = "";
                         string NameRepeatedError = "";
 
-                        if (!IsNameGood) NameError = $"Имя: \"{SelectedTechnology.name}\"\n";
+                        if (!IsNameGood) NameError = $"Имя: \"{SelectedTechnology.Name}\"\n";
                         if (!IsNameNotRepeated) NameRepeatedError = "(повторяющееся имя)\n";
 
                         Window ErrorMessage = null;

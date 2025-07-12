@@ -35,7 +35,7 @@ namespace SearchEngine
 
         public bool IsScannerNameExist(string ScannerName)
         {
-            foreach (var Scanner in _DataBase.Scanner) if (ScannerName == ScannerName) return true;
+            foreach (var Scanner in _DataBase.Scanner) if (ScannerName == Scanner.Name) return true;
 
             return false;
         }
@@ -53,7 +53,9 @@ namespace SearchEngine
         public bool IsUserExist(string Name, string Password)
         {
 
-            string hashedPassword = PasswordHasher.HashPassword("user");
+            var string1 = PasswordHasher.HashPassword("admin");
+
+            var string2 = PasswordHasher.HashPassword("user");
 
             foreach (var User in _DataBase.User) if ((User.Name == Name) && (User.VerifyPassword(Password, User.PasswordHash))) return true;
 

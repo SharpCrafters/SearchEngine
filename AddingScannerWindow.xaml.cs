@@ -24,183 +24,159 @@ namespace SearchEngine
 
         private void AddingNewScannerButtonClick(object sender, RoutedEventArgs e)
         {
-            bool IsNameGood = !string.IsNullOrWhiteSpace(NameTextBox.Text);
-            bool IsNameNotExist = true;
-            bool IsCreatorSelected = CreatorComboBox.SelectedItem != null;
-            bool IsTechnologySelected = TechnologyComboBox.SelectedItem != null;
-            bool IsAccuracyGood = true;
-            bool IsSpeedGood = true;
-            bool IsColorCaptureSelected = ColorCaptureComboBox.SelectedItem != null;
-            bool IsPriceGood = true;
-            bool IsReleaseYearGood = true;
-            bool IsDescriptionGood = !string.IsNullOrWhiteSpace(DescriptionTextBox.Text);
+            var ValidationResult = ValidateInputs();
 
-            int SelectedSpeed = 0, SelectedAccuracy = 0, SelectedPrice = 0, SelectedReleaseYear = 0;
-
-            if (_DataBaseService.IsScannerNameExist(NameTextBox.Text))
+            if (ValidationResult.IsValid)
             {
-                IsNameNotExist = false;
-            }
-
-            if (!int.TryParse(SpeedTextBox.Text, out SelectedSpeed))
-            {
-                IsSpeedGood = false;
-            }
-
-            else if (SelectedSpeed <= 0)
-            {
-                IsSpeedGood = false;
-            }
-
-            if (!int.TryParse(AccuracyTextBox.Text, out SelectedAccuracy)) IsAccuracyGood = false;
-
-            else if (SelectedAccuracy <= 0) IsAccuracyGood = false;
-
-            if (!int.TryParse(PriceTextBox.Text, out SelectedPrice)) IsPriceGood = false;
-
-            else if (SelectedPrice <= 0) IsPriceGood = false;
-
-            if (!int.TryParse(ReleaseYearTextBox.Text, out SelectedReleaseYear)) IsReleaseYearGood = false;
-
-            else if ((SelectedReleaseYear < 1970) && (SelectedReleaseYear > 2025)) IsReleaseYearGood = false;
-
-            if (IsNameGood && IsNameNotExist && IsCreatorSelected && IsTechnologySelected && IsAccuracyGood && IsSpeedGood &&
-                IsColorCaptureSelected && IsPriceGood && IsReleaseYearGood && IsDescriptionGood)
-            {
-                var NewScanner = new ScannerDataGrid()
-                {
-                    name = NameTextBox.Text,
-                    creator = CreatorComboBox.SelectedItem.ToString(),
-                    technology = TechnologyComboBox.SelectedItem.ToString(),
-                    accuracy = SelectedAccuracy,
-                    speed = SelectedSpeed,
-                    colorcapture = ColorCaptureComboBox.SelectedItem.ToString(),
-                    price = SelectedPrice,
-                    release = SelectedReleaseYear,
-                    description = DescriptionTextBox.Text,
-                };
-
+                var NewScanner = CreateScannerFromInputs();
                 _DataBaseService.SaveScannerByDataGrid(NewScanner);
-
-                Window SuccessfulMessage = null;
-
-                SuccessfulMessage = new Window
-                {
-                    Title = "Успешное добавление",
-                    SizeToContent = SizeToContent.WidthAndHeight,
-                    ResizeMode = ResizeMode.NoResize,
-                    WindowStartupLocation = WindowStartupLocation.CenterScreen,
-                    Icon = Application.Current.MainWindow.Icon,
-                    Background = (Brush)new BrushConverter().ConvertFrom("#D9D9D9"),
-                    Content = new StackPanel
-                    {
-                        Margin = new Thickness(20),
-                        Children =
-        {
-            new TextBlock
-            {
-                Text = $"Данные были успешно добавлены!",
-                HorizontalAlignment = HorizontalAlignment.Center,
-                FontSize = 16,
-                Margin = new Thickness(0, 0, 0, 20),
-                Foreground = (Brush)new BrushConverter().ConvertFrom("#373737")
-            },
-
-                    new System.Windows.Controls.Button
-                    {
-                        Background = (Brush)new BrushConverter().ConvertFrom("#373737"),
-                        Content = "Замечательно!",
-                        Margin = new Thickness(0, 0, 10, 0),
-                        BorderBrush = new SolidColorBrush(Color.FromRgb(55,55,55)),
-                        Foreground = (Brush)new BrushConverter().ConvertFrom("#D9D9D9"),
-                        Command = new RelayCommand(() =>
-                        {
-                            SuccessfulMessage.Close();
-                                })
-                            },
-
-
-                        }
-                    }
-                };
-
-                SuccessfulMessage.Closed += (s, e) =>
-                {
-                    this.Close();
-                };
-
-                SuccessfulMessage.ShowDialog();
+                ShowMessage("Успешное добавление", "Данные были успешно добавлены!", "Замечательно!");
             }
-
             else
             {
-                string NameError = "";
-                string NameExistError = "";
-                string CreatorError = "";
-                string TechnologyError = "";
-                string AccuracyError = "";
-                string SpeedError = "";
-                string ColorCaptureError = "";
-                string PriceError = "";
-                string ReleaseError = "";
-                string DescriptionError = "";
-
-                if (!IsNameGood) NameError = $"Имя: \"{NameTextBox.Text}\"\n";
-                if (!IsNameNotExist) NameExistError = "(сканер с таким именем уже существует) \n";
-                if (!IsCreatorSelected) CreatorError = $"Не выбран производитель\n";
-                if (!IsTechnologySelected) TechnologyError = $"Не выбрана технология\n";
-                if (!IsAccuracyGood) AccuracyError = $"Точность: {AccuracyTextBox.Text}\n";
-                if (!IsSpeedGood) SpeedError = $"Скорость: {SpeedTextBox.Text}\n";
-                if (!IsColorCaptureSelected) ColorCaptureError = $"Не выбран захват цвета\n";
-                if (!IsPriceGood) PriceError = $"Стоимость: {PriceTextBox.Text}\n";
-                if (!IsReleaseYearGood) ReleaseError = $"Год выпуска: {ReleaseYearTextBox.Text}\n";
-                if (!IsDescriptionGood) DescriptionError = $"Описание: \"{DescriptionTextBox.Text}\"\n";
-
-                Window ErrorMessage = null;
-
-                ErrorMessage = new Window
-                {
-                    Title = "Ошибка сохранения",
-                    SizeToContent = SizeToContent.WidthAndHeight,
-                    ResizeMode = ResizeMode.NoResize,
-                    WindowStartupLocation = WindowStartupLocation.CenterScreen,
-                    Icon = Application.Current.MainWindow.Icon,
-                    Background = (Brush)new BrushConverter().ConvertFrom("#D9D9D9"),
-                    Content = new StackPanel
-                    {
-                        Margin = new Thickness(20),
-                        Children =
-        {
-            new TextBlock
-            {
-                Text = $"Не удалось добавить новый сканер, поскольку:\n" +
-                       $"{NameError}{NameExistError}{CreatorError}{TechnologyError}{AccuracyError}{SpeedError}{ColorCaptureError}{PriceError}{ReleaseError}{DescriptionError}",
-                HorizontalAlignment = HorizontalAlignment.Center,
-                FontSize = 16,
-                Margin = new Thickness(0, 0, 0, 20),
-                Foreground = (Brush)new BrushConverter().ConvertFrom("#373737")
-            },
-
-                    new System.Windows.Controls.Button
-                    {
-                        Background = (Brush)new BrushConverter().ConvertFrom("#373737"),
-                        Content = "Сейчас исправим!",
-                        Margin = new Thickness(0, 0, 10, 0),
-                        BorderBrush = new SolidColorBrush(Color.FromRgb(55,55,55)),
-                        Foreground = (Brush)new BrushConverter().ConvertFrom("#D9D9D9"),
-                        Command = new RelayCommand(() =>
-                        {
-                            ErrorMessage.Close();
-                                })
-                            },
-
-
-                        }
-                    }
-                };
-
-                ErrorMessage.ShowDialog();
+                ShowErrorMessage(ValidationResult);
             }
+        }
+
+        private (bool IsValid, Dictionary<string, string> Errors) ValidateInputs()
+        {
+            var Errors = new Dictionary<string, string>();
+
+            // Проверка имени
+            if (string.IsNullOrWhiteSpace(NameTextBox.Text))
+            {
+                Errors["Name"] = $"Имя: \"{NameTextBox.Text}\"\n";
+            }
+            else if (_DataBaseService.IsScannerNameExist(NameTextBox.Text))
+            {
+                Errors["NameExist"] = "(сканер с таким именем уже существует)\n";
+            }
+
+            // Проверка выпадающих списков
+            if (CreatorComboBox.SelectedItem == null)
+                Errors["Creator"] = "Не выбран производитель\n";
+
+            if (TechnologyComboBox.SelectedItem == null)
+                Errors["Technology"] = "Не выбрана технология\n";
+
+            if (ColorCaptureComboBox.SelectedItem == null)
+                Errors["ColorCapture"] = "Не выбран захват цвета\n";
+
+            // Проверка числовых полей
+            ValidateNumberField(SpeedTextBox.Text, "Speed", 1, int.MaxValue, "Скорость", Errors);
+            ValidateNumberField(AccuracyTextBox.Text, "Accuracy", 1, int.MaxValue, "Точность", Errors);
+            ValidateNumberField(PriceTextBox.Text, "Price", 1, double.MaxValue, "Стоимость", Errors);
+            ValidateNumberField(ReleaseYearTextBox.Text, "ReleaseYear", 1970, 2025, "Год выпуска", Errors);
+
+            // Проверка описания
+            if (string.IsNullOrWhiteSpace(DescriptionTextBox.Text))
+            {
+                Errors["Description"] = $"Описание: \"{DescriptionTextBox.Text}\"\n";
+            }
+
+            return (Errors.Count == 0, Errors);
+        }
+
+        private void ValidateNumberField(string Input, string FieldName, int MinValue, int MaxValue, string DisplayName, Dictionary<string, string> Errors)
+        {
+            if (!int.TryParse(Input, out int Value))
+            {
+                Errors[FieldName] = $"{DisplayName}: {Input}\n";
+                return;
+            }
+
+            if (Value < MinValue || Value > MaxValue)
+            {
+                Errors[FieldName] = $"{DisplayName}: {Input} (должно быть между {MinValue} и {MaxValue})\n";
+            }
+        }
+
+        private void ValidateNumberField(string Input, string FieldName, double MinValue, double MaxValue, string DisplayName, Dictionary<string, string> Errors)
+        {
+            if (!double.TryParse(Input, out double Value))
+            {
+                Errors[FieldName] = $"{DisplayName}: {Input}\n";
+                return;
+            }
+
+            if (Value < MinValue || Value > MaxValue)
+            {
+                Errors[FieldName] = $"{DisplayName}: {Input} (должно быть между {MinValue} и {MaxValue})\n";
+            }
+        }
+
+        private ScannerDataGrid CreateScannerFromInputs()
+        {
+            return new ScannerDataGrid()
+            {
+                Name = NameTextBox.Text,
+                Creator = CreatorComboBox.SelectedItem.ToString(),
+                Technology = TechnologyComboBox.SelectedItem.ToString(),
+                Accuracy = int.Parse(AccuracyTextBox.Text),
+                Speed = int.Parse(SpeedTextBox.Text),
+                ColorCapture = ColorCaptureComboBox.SelectedItem.ToString(),
+                Price = double.Parse(PriceTextBox.Text),
+                Release = int.Parse(ReleaseYearTextBox.Text),
+                Description = DescriptionTextBox.Text,
+            };
+        }
+
+        private void ShowMessage(string Title, string Message, string ButtonText)
+        {
+            var MessageWindow = CreateMessageWindow(Title, Message, ButtonText);
+            MessageWindow.Closed += (s, e) => this.Close();
+            MessageWindow.ShowDialog();
+        }
+
+        private void ShowErrorMessage((bool IsValid, Dictionary<string, string> Errors) ValidationResult)
+        {
+            var ErrorMessage = "Не удалось добавить новый сканер, поскольку:\n" +
+                              string.Join("", ValidationResult.Errors.Values);
+
+            var ErrorWindow = CreateMessageWindow("Ошибка сохранения", ErrorMessage, "Сейчас исправим!");
+            ErrorWindow.ShowDialog();
+        }
+
+        private Window Window;
+
+        private Window CreateMessageWindow(string Title, string Message, string ButtonText)
+        {
+
+            Window = new Window
+            {
+                Title = Title,
+                SizeToContent = SizeToContent.WidthAndHeight,
+                ResizeMode = ResizeMode.NoResize,
+                WindowStartupLocation = WindowStartupLocation.CenterScreen,
+                Icon = Application.Current.MainWindow.Icon,
+                Background = (Brush)new BrushConverter().ConvertFrom("#D9D9D9"),
+                Content = new StackPanel
+                {
+                    Margin = new Thickness(20),
+                    Children =
+            {
+                new TextBlock
+                {
+                    Text = Message,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    FontSize = 16,
+                    Margin = new Thickness(0, 0, 0, 20),
+                    Foreground = (Brush)new BrushConverter().ConvertFrom("#373737")
+                },
+                new Button
+                {
+                    Background = (Brush)new BrushConverter().ConvertFrom("#373737"),
+                    Content = ButtonText,
+                    Margin = new Thickness(0, 0, 10, 0),
+                    BorderBrush = new SolidColorBrush(Color.FromRgb(55,55,55)),
+                    Foreground = (Brush)new BrushConverter().ConvertFrom("#D9D9D9"),
+                    Command = new RelayCommand(() => Window.Close())
+                }
+            }
+                }
+            };
+
+            return Window;
         }
     }
 

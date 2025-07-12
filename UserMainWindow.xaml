@@ -69,15 +69,15 @@
                           Height="355">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID" IsReadOnly="True" Binding="{Binding id, UpdateSourceTrigger=PropertyChanged}"/>
-                                <DataGridTextColumn Header="Название" IsReadOnly="True" Binding="{Binding name, UpdateSourceTrigger=PropertyChanged}"/>
-                                <DataGridTextColumn Header="Производитель" IsReadOnly="True" Binding="{Binding creator, UpdateSourceTrigger=PropertyChanged}"/>
-                                <DataGridTextColumn Header="Технология" IsReadOnly="True" Binding="{Binding technology, UpdateSourceTrigger=PropertyChanged}"/>
-                                <DataGridTextColumn Header="Точность (нм)" IsReadOnly="True" Binding="{Binding accuracy, UpdateSourceTrigger=PropertyChanged}"/>
-                                <DataGridTextColumn Header="Скорость (точек/с)" IsReadOnly="True" Binding="{Binding speed, UpdateSourceTrigger=PropertyChanged}"/>
-                                <DataGridTextColumn Header="Захват цвета" IsReadOnly="True" Binding="{Binding colorcapture, UpdateSourceTrigger=PropertyChanged}"/>
-                                <DataGridTextColumn Header="Цена (₽)" IsReadOnly="True" Binding="{Binding price, UpdateSourceTrigger=PropertyChanged}"/>
-                                <DataGridTextColumn Header="Год выпуска" IsReadOnly="True" Binding="{Binding release, UpdateSourceTrigger=PropertyChanged}"/>
-                                <DataGridTextColumn Header="Описание" IsReadOnly="True" Binding="{Binding description, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Название" IsReadOnly="True" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Производитель" IsReadOnly="True" Binding="{Binding Creator, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Технология" IsReadOnly="True" Binding="{Binding Technology, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Точность (нм)" IsReadOnly="True" Binding="{Binding Accuracy, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Скорость (точек/с)" IsReadOnly="True" Binding="{Binding Speed, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Захват цвета" IsReadOnly="True" Binding="{Binding ColorCapture, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Цена (₽)" IsReadOnly="True" Binding="{Binding Price, UpdateSourceTrigger=PropertyChanged,StringFormat=N2, ConverterCulture=ru-RU}"/>
+                                <DataGridTextColumn Header="Год выпуска" IsReadOnly="True" Binding="{Binding Release, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Описание" IsReadOnly="True" Binding="{Binding Description, UpdateSourceTrigger=PropertyChanged}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </StackPanel>

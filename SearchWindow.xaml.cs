@@ -28,225 +28,117 @@ namespace SearchEngine
 
         private void SearchScannerButtonClick(object sender, RoutedEventArgs e)
         {
-            List<ScannerDataGrid> TempList = new List<ScannerDataGrid>();
+            // Получаем данные один раз
+            var FilterList = _DataBaseService.GetPreparedForGridList();
 
-            List<ScannerDataGrid> FilterList = _DataBaseService.GetPreparedForGridList();
+            // Применяем фильтры последовательно
+            FilterList = ApplyComboBoxFilter(FilterList, CreatorComboBox, Scanner => Scanner.Creator);
+            FilterList = ApplyComboBoxFilter(FilterList, TechnologyComboBox, Scanner => Scanner.Technology);
+            FilterList = ApplyComboBoxFilter(FilterList, ColorCaptureComboBox, Scanner => Scanner.ColorCapture);
+            FilterList = ApplyReleaseYearFilter(FilterList, ReleaseYearComboBox);
+            FilterList = ApplyPriceFilter(FilterList, PriceComboBox);
 
-            if ((CreatorComboBox.SelectedItem != null) && (CreatorComboBox.SelectedItem != "Все"))
+            // Показываем результат
+            ShowResultMessage(FilterList);
+        }
+
+        // Общий метод для фильтрации по ComboBox (кроме цены и года)
+        private List<ScannerDataGrid> ApplyComboBoxFilter(List<ScannerDataGrid> Source, ComboBox ComboBox, Func<ScannerDataGrid, string> PropertySelector)
+        {
+            if (ComboBox.SelectedItem == null || ComboBox.SelectedItem.ToString() == "Все")
+                return Source;
+
+            var SelectedValue = ComboBox.SelectedItem.ToString();
+            return Source.Where(Item => PropertySelector(Item) == SelectedValue).ToList();
+        }
+
+        // Фильтр для года выпуска
+        private List<ScannerDataGrid> ApplyReleaseYearFilter(List<ScannerDataGrid> Source, ComboBox ComboBox)
+        {
+            if (ComboBox.SelectedItem == null || ComboBox.SelectedItem.ToString() == "Все")
+                return Source;
+
+            if (int.TryParse(ComboBox.SelectedItem.ToString(), out int Year))
             {
-                string SelectedCreator = CreatorComboBox.SelectedItem.ToString();
-
-                foreach (var Scanner in FilterList) if (Scanner.creator == SelectedCreator) TempList.Add(Scanner);
-
-                FilterList = TempList.ToList();
-
-                TempList.Clear();
+                return Source.Where(Item => Item.Release == Year).ToList();
             }
+            return Source;
+        }
 
-            if ((TechnologyComboBox.SelectedItem != null) && (TechnologyComboBox.SelectedItem != "Все"))
+        // Фильтр для цены
+        private List<ScannerDataGrid> ApplyPriceFilter(List<ScannerDataGrid> Source, ComboBox ComboBox)
+        {
+            if (ComboBox.SelectedItem == null || ComboBox.SelectedItem.ToString() == "Все")
+                return Source;
+
+            var SelectedPrice = ComboBox.SelectedItem.ToString();
+            return SelectedPrice switch
             {
-                string SelectedTechnology = TechnologyComboBox.SelectedItem.ToString();
+                "Менее 100 000₽" => Source.Where(x => x.Price < 100000).ToList(),
+                "100 000 – 500 000₽" => Source.Where(x => x.Price >= 100000 && x.Price <= 500000).ToList(),
+                "500 001 – 1 000 000₽" => Source.Where(x => x.Price >= 500001 && x.Price <= 1000000).ToList(),
+                "1 000 001 - 2 000 000₽" => Source.Where(x => x.Price >= 1000001 && x.Price <= 2000000).ToList(),
+                "2 000 001 - 3 000 000₽" => Source.Where(x => x.Price >= 2000001 && x.Price <= 3000000).ToList(),
+                "3 000 001 - 4 000 000₽" => Source.Where(x => x.Price >= 3000001 && x.Price <= 4000000).ToList(),
+                "4 000 001 - 5 000 000₽" => Source.Where(x => x.Price >= 4000001 && x.Price <= 5000000).ToList(),
+                "Более 5 000 000₽" => Source.Where(x => x.Price > 5000000).ToList(),
+                _ => Source
+            };
+        }
 
-                foreach (var Scanner in FilterList) if (Scanner.technology == SelectedTechnology) TempList.Add(Scanner);
+        // Показ результата
+        private void ShowResultMessage(List<ScannerDataGrid> FilterList)
+        {
+            var IsSuccess = FilterList.Count > 0;
+            var Title = IsSuccess ? "Потрясающие результаты" : "Неутешительные результаты";
+            var Message = IsSuccess
+                ? $"По заданным фильтрам было найдено следующее число записей: {FilterList.Count}."
+                : "По заданным фильтрам не было найдено ни одного сканера :(";
+            var buttonText = IsSuccess ? "Замечательно!" : "Очень жаль!";
 
-                FilterList = TempList.ToList();
+            Window MessageWindow = null;
 
-                TempList.Clear();
+            MessageWindow = new Window
+            {
+                Title = Title,
+                SizeToContent = SizeToContent.WidthAndHeight,
+                ResizeMode = ResizeMode.NoResize,
+                WindowStartupLocation = WindowStartupLocation.CenterScreen,
+                Icon = Application.Current.MainWindow.Icon,
+                Background = (Brush)new BrushConverter().ConvertFrom("#D9D9D9"),
+                Content = new StackPanel
+                {
+                    Margin = new Thickness(20),
+                    Children =
+            {
+                new TextBlock
+                {
+                    Text = Message,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    FontSize = 16,
+                    Margin = new Thickness(0, 0, 0, 20),
+                    Foreground = (Brush)new BrushConverter().ConvertFrom("#373737")
+                },
+                new Button
+                {
+                    Background = (Brush)new BrushConverter().ConvertFrom("#373737"),
+                    Content = buttonText,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    BorderBrush = new SolidColorBrush(Color.FromRgb(55,55,55)),
+                    Foreground = (Brush)new BrushConverter().ConvertFrom("#D9D9D9"),
+                    Command = new RelayCommand(() => MessageWindow.Close())
+                }
             }
+                }
+            };
 
-            if ((ColorCaptureComboBox.SelectedItem != null) && (ColorCaptureComboBox.SelectedItem != "Все"))
+            MessageWindow.Closed += (s, e) => this.Close();
+            MessageWindow.ShowDialog();
+
+            if (IsSuccess)
             {
-                string SelectedColorCapture = ColorCaptureComboBox.SelectedItem.ToString();
-
-                foreach (var Scanner in FilterList) if (Scanner.colorcapture == SelectedColorCapture) TempList.Add(Scanner);
-
-                FilterList = TempList.ToList();
-
-                TempList.Clear();
-            }
-
-            if ((ReleaseYearComboBox.SelectedItem != null) && (ReleaseYearComboBox.SelectedItem != "Все"))
-            {
-                string SelectedReleaseYear = ReleaseYearComboBox.SelectedItem.ToString();
-
-                foreach (var Scanner in FilterList) if (Scanner.release == int.Parse(SelectedReleaseYear)) TempList.Add(Scanner);
-
-                FilterList = TempList.ToList();
-
-                TempList.Clear();
-            }
-
-            if ((PriceComboBox.SelectedItem != null) && (PriceComboBox.SelectedItem != "Все"))
-            {
-
-                if (PriceComboBox.SelectedItem == "Менее 100 000₽")
-                {
-                    foreach (var ScannerForFirstChecking in FilterList) if (ScannerForFirstChecking.price < 100000) TempList.Add(ScannerForFirstChecking);
-
-                    FilterList = TempList.ToList();
-
-                    TempList.Clear();
-                }
-
-                else if (PriceComboBox.SelectedItem == "100 000 – 500 000₽")
-                {
-                    foreach (var ScannerForSecondChecking in FilterList) if ((ScannerForSecondChecking.price >= 100000) && (ScannerForSecondChecking.price <= 500000)) TempList.Add(ScannerForSecondChecking);
-
-                    FilterList = TempList.ToList();
-
-                    TempList.Clear();
-                }
-
-                else if (PriceComboBox.SelectedItem == "500 001 – 1 000 000₽")
-                {
-                    foreach (var ScannerForThirdChecking in FilterList) if ((ScannerForThirdChecking.price >= 500001) && (ScannerForThirdChecking.price <= 1000000)) TempList.Add(ScannerForThirdChecking);
-
-                    FilterList = TempList.ToList();
-
-                    TempList.Clear();
-                }
-
-                else if (PriceComboBox.SelectedItem == "1 000 001 - 2 000 000₽")
-                {
-                    foreach (var ScannerForFourthChecking in FilterList) if ((ScannerForFourthChecking.price >= 1000001) && (ScannerForFourthChecking.price <= 2000000)) TempList.Add(ScannerForFourthChecking);
-
-                    FilterList = TempList.ToList();
-
-                    TempList.Clear();
-                }
-
-                else if (PriceComboBox.SelectedItem == "2 000 001 - 3 000 000₽")
-                {
-                    foreach (var ScannerForFifthChecking in FilterList) if ((ScannerForFifthChecking.price >= 2000001) && (ScannerForFifthChecking.price <= 3000000)) TempList.Add(ScannerForFifthChecking);
-
-                    FilterList = TempList.ToList();
-
-                    TempList.Clear();
-                }
-
-                else if (PriceComboBox.SelectedItem == "3 000 001 - 4 000 000₽")
-                {
-                    foreach (var ScannerForSixthChecking in FilterList) if ((ScannerForSixthChecking.price >= 3000001) && (ScannerForSixthChecking.price <= 4000000)) TempList.Add(ScannerForSixthChecking);
-
-                    FilterList = TempList.ToList();
-
-                    TempList.Clear();
-                }
-
-                else if (PriceComboBox.SelectedItem == "4 000 001 - 5 000 000₽")
-                {
-                    foreach (var ScannerForSeventhChecking in FilterList) if ((ScannerForSeventhChecking.price >= 4000001) && (ScannerForSeventhChecking.price <= 5000000)) TempList.Add(ScannerForSeventhChecking);
-
-                    FilterList = TempList.ToList();
-
-                    TempList.Clear();
-                }
-
-                else if (PriceComboBox.SelectedItem == "Более 5 000 000₽")
-                {
-                    foreach (var ScannerForEighthChecking in FilterList) if (ScannerForEighthChecking.price > 5000000) TempList.Add(ScannerForEighthChecking);
-
-                    FilterList = TempList.ToList();
-
-                    TempList.Clear();
-                }
-
-
-            }
-
-            Window Message = null;
-
-            if (FilterList.Count == 0)
-            {
-                Message = new Window
-                {
-                    Title = "Неутешительные результаты",
-                    SizeToContent = SizeToContent.WidthAndHeight,
-                    ResizeMode = ResizeMode.NoResize,
-                    WindowStartupLocation = WindowStartupLocation.CenterScreen,
-                    Icon = Application.Current.MainWindow.Icon,
-                    Background = (Brush)new BrushConverter().ConvertFrom("#D9D9D9"),
-                    Content = new StackPanel
-                    {
-                        Margin = new Thickness(20),
-                        Children =
-                            {
-                                new TextBlock
-                                {
-                                    Text = $"По заданным фильтрам не было найдено ни одного сканера :(",
-                                    HorizontalAlignment = HorizontalAlignment.Center,
-                                    FontSize = 16,
-                                    Margin = new Thickness(0, 0, 0, 20),
-                                    Foreground = (Brush)new BrushConverter().ConvertFrom("#373737")
-                                },
-                                new System.Windows.Controls.Button
-                                {
-                                    Background = (Brush)new BrushConverter().ConvertFrom("#373737"),
-                                    Content = "Очень жаль!",
-                                    HorizontalAlignment = HorizontalAlignment.Center,
-                                    BorderBrush = new SolidColorBrush(Color.FromRgb(55,55,55)),
-                                    Foreground = (Brush)new BrushConverter().ConvertFrom("#D9D9D9"),
-                                    Command = new RelayCommand(() => Message.Close())
-                                }
-                            }
-                    }
-                };
-
-                Message.Closed += (s, e) =>
-                {
-                    this.Close();
-                };
-
-                Message.ShowDialog();
-            }
-
-            if (FilterList.Count > 0)
-            {
-                Message = new Window
-                {
-                    Title = "Потрясающие результаты",
-                    SizeToContent = SizeToContent.WidthAndHeight,
-                    ResizeMode = ResizeMode.NoResize,
-                    WindowStartupLocation = WindowStartupLocation.CenterScreen,
-                    Icon = Application.Current.MainWindow.Icon,
-                    Background = (Brush)new BrushConverter().ConvertFrom("#D9D9D9"),
-                    Content = new StackPanel
-                    {
-                        Margin = new Thickness(20),
-                        Children =
-                            {
-                                new TextBlock
-                                {
-                                    Text = $"По заданным фильтрам было найдено следующее число записей: {FilterList.Count}.",
-                                    HorizontalAlignment = HorizontalAlignment.Center,
-                                    FontSize = 16,
-                                    Margin = new Thickness(0, 0, 0, 20),
-                                    Foreground = (Brush)new BrushConverter().ConvertFrom("#373737")
-                                },
-                                new System.Windows.Controls.Button
-                                {
-                                    Background = (Brush)new BrushConverter().ConvertFrom("#373737"),
-                                    Content = "Замечательно!",
-                                    HorizontalAlignment = HorizontalAlignment.Center,
-                                    BorderBrush = new SolidColorBrush(Color.FromRgb(55,55,55)),
-                                    Foreground = (Brush)new BrushConverter().ConvertFrom("#D9D9D9"),
-                                    Command = new RelayCommand(() => Message.Close())
-                                }
-                            }
-                    }
-                };
-
-                Message.Closed += (s, e) =>
-                {
-                    this.Close();
-                };
-
-                Message.ShowDialog();
-
                 PreparedList.List = FilterList;
-
                 DataUpdated?.Invoke();
-
             }
         }
 

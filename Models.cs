@@ -151,7 +151,5 @@ namespace SearchEngine
         {
             return PasswordHasher.VerifyPassword(password, PasswordHash);
         }
-
-        ~User() { }
     }
 }

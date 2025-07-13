@@ -1101,7 +1101,14 @@ namespace SearchEngine
         {
             AddingScannerWindow AddingScannerWindow = new AddingScannerWindow();
 
-            AddingScannerWindow.Show();
+            AddingScannerWindow.Closed += (s, e) =>
+            {
+                ScannersTable.ItemsSource = _DataBaseService.GetPreparedForGridList();
+
+                ScannersTable.Items.Refresh();
+            };
+
+            AddingScannerWindow.Show();            
         }
 
     }

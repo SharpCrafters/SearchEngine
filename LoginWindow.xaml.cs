@@ -37,10 +37,18 @@ namespace SearchEngine
             switch (UserNameTextBox.Text)
             {
                 case "user":
+
                     ShowSuccessMessage("user", new UserMainWindow());
+
+                    _DataBaseService.SetNewPasswordHashToUser();
+
                     break;
                 case "admin":
+
                     ShowSuccessMessage("admin", new AdministratorMainWindow());
+
+                    _DataBaseService.SetNewPasswordHashToAdministrator();
+
                     break;
             }
         }

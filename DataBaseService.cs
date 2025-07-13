@@ -6,6 +6,38 @@ namespace SearchEngine
     {
         private readonly ApplicationContext _DataBase = new ApplicationContext();
 
+        public void SetNewPasswordHashToUser()
+        {
+            string NewHash = PasswordHasher.HashPassword("user");
+
+            foreach (var User in _DataBase.User)
+
+                if (User.Name == "user")
+                {
+                    User.PasswordHash = NewHash;
+
+                    _DataBase.Update(User);
+
+                    _DataBase.SaveChanges();
+                }
+        }
+
+        public void SetNewPasswordHashToAdministrator()
+        {
+            string NewHash = PasswordHasher.HashPassword("admin");
+
+            foreach (var User in _DataBase.User)
+
+                if (User.Name == "admin")
+                {
+                    User.PasswordHash = NewHash;
+
+                    _DataBase.Update(User);
+
+                    _DataBase.SaveChanges();
+                }
+        }
+
         public bool IsScannerNameRepeated(Scanner Scanner)
         {
             if (!string.IsNullOrWhiteSpace(Scanner.Name)) return false;
